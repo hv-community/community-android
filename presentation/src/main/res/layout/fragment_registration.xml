@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.hv.community.android.presentation.ui.login.detail.LoginDetailViewModel" />
+            type="com.hv.community.android.presentation.ui.registration.RegistrationViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
             android:id="@+id/actionbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/login_detail_title"
+            android:text="@string/registration_title"
             app:isBackEnabled="true"
             app:isBackVisible="true"
             app:layout_constraintEnd_toEndOf="parent"
@@ -40,19 +40,43 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/container_email"
+                    android:id="@+id/container_nickname"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/spacing_m"
                     android:layout_marginTop="@dimen/spacing_xl"
                     android:enabled="@{!vm.isLoading}"
-                    android:hint="@string/login_detail_email"
+                    android:hint="@string/registration_nickname"
                     app:endIconMode="clear_text"
-                    app:error="@{vm.isEmailValid ? null : @string/login_detail_email_error }"
+                    app:error="@{vm.isNicknameValid ? null : @string/registration_nickname_error }"
                     app:errorEnabled="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/input_nickname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:text="@={vm.nickname}"
+                        tools:text="Mayhem" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/container_email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_m"
+                    android:layout_marginTop="@dimen/spacing_s"
+                    android:enabled="@{!vm.isLoading}"
+                    android:hint="@string/registration_email"
+                    app:endIconMode="clear_text"
+                    app:error="@{vm.isEmailValid ? null : @string/registration_email_error }"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/container_nickname">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/input_email"
@@ -61,7 +85,6 @@
                         android:inputType="textEmailAddress"
                         android:text="@={vm.email}"
                         tools:text="hello1234@gmail.com" />
-
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -71,9 +94,9 @@
                     android:layout_marginHorizontal="@dimen/spacing_m"
                     android:layout_marginTop="@dimen/spacing_s"
                     android:enabled="@{!vm.isLoading}"
-                    android:hint="@string/login_detail_password"
+                    android:hint="@string/registration_password"
                     app:endIconMode="password_toggle"
-                    app:error="@{vm.isPasswordValid ? null : @string/login_detail_password_error}"
+                    app:error="@{vm.isPasswordValid ? null : @string/registration_password_error}"
                     app:errorEnabled="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -88,19 +111,29 @@
                         tools:text="12345678" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/registration"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/container_password_confirm"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/spacing_s"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:text="@string/login_detail_registration"
-                    android:textAppearance="?attr/typographyBody2"
-                    app:layout_constraintBottom_toTopOf="@id/confirm"
-                    app:layout_constraintEnd_toEndOf="@id/confirm"
-                    app:layout_constraintStart_toStartOf="@id/confirm"
-                    app:onIntervalClick="@{() -> vm.onRegistration()}"
-                    app:underline="@{true}" />
+                    android:layout_marginHorizontal="@dimen/spacing_m"
+                    android:layout_marginTop="@dimen/spacing_s"
+                    android:enabled="@{!vm.isLoading}"
+                    android:hint="@string/registration_password_confirm"
+                    app:endIconMode="password_toggle"
+                    app:error="@{vm.isPasswordConfirmValid ? null : @string/registration_password_confirm_error}"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/container_password">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/input_password_confirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:text="@={vm.passwordConfirm}"
+                        tools:text="12345678" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.ray.rds.view.button.ConfirmButton
                     android:id="@+id/confirm"

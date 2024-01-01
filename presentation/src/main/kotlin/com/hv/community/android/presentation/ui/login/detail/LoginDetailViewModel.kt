@@ -70,13 +70,31 @@ class LoginDetailViewModel @Inject constructor(
             _isEmailValid.value = isEmailValid
             _isPasswordValid.value = isPasswordValid
 
-            if (!isEmailValid) {
-                _event.emit(LoginDetailViewEvent.Validation.InvalidEmail)
-            } else if (!isPasswordValid) {
-                _event.emit(LoginDetailViewEvent.Validation.InvalidPassword)
-            } else {
-                signIn()
+            when {
+                !isEmailValid -> {
+                    _event.emit(LoginDetailViewEvent.Validation.InvalidEmail)
+                }
+
+                !isPasswordValid -> {
+                    _event.emit(LoginDetailViewEvent.Validation.InvalidPassword)
+                }
+
+                else -> {
+                    signIn()
+                }
             }
+        }
+    }
+
+    fun onRegistration() {
+        launch {
+            _event.emit(LoginDetailViewEvent.GoRegistration)
+        }
+    }
+
+    fun onBack() {
+        launch {
+            _event.emit(LoginDetailViewEvent.GoBack)
         }
     }
 

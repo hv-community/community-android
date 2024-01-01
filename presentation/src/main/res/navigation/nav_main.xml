@@ -34,5 +34,19 @@
     <fragment
         android:id="@+id/login_detail"
         android:name="com.hv.community.android.presentation.ui.login.detail.LoginDetailFragment"
-        tools:layout="@layout/fragment_login_detail" />
+        tools:layout="@layout/fragment_login_detail">
+
+        <action
+            android:id="@+id/action_login_detail_to_registration"
+            app:destination="@id/registration"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registration"
+        android:name="com.hv.community.android.presentation.ui.registration.RegistrationFragment"
+        tools:layout="@layout/fragment_registration" />
 </navigation>

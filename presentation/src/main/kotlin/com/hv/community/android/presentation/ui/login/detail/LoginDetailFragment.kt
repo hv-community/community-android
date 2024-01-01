@@ -1,6 +1,8 @@
 package com.hv.community.android.presentation.ui.login.detail
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.hv.community.android.presentation.R
 import com.hv.community.android.presentation.common.base.BaseFragment
 import com.hv.community.android.presentation.common.util.coroutine.event.eventObserve
 import com.hv.community.android.presentation.databinding.FragmentLoginDetailBinding
@@ -70,6 +72,16 @@ class LoginDetailFragment :
 
                     is LoginDetailViewEvent.Validation -> {
                         validation(event)
+                    }
+
+                    LoginDetailViewEvent.GoRegistration -> {
+                        findNavController().navigate(
+                            R.id.action_login_detail_to_registration
+                        )
+                    }
+
+                    LoginDetailViewEvent.GoBack -> {
+                        findNavController().navigateUp()
                     }
                 }
             }

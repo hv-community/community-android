@@ -6,4 +6,7 @@ sealed interface SplashViewEvent {
         data object Fail : Login
         data object Error : Login
     }
+
+    data object GoLogin : SplashViewEvent
+    data object GoRegistrationConfirm : SplashViewEvent
 }

@@ -11,4 +11,8 @@ sealed interface LoginDetailViewEvent {
         data object Fail : Login
         data object Error : Login
     }
+
+    data object GoRegistration : LoginDetailViewEvent
+
+    data object GoBack : LoginDetailViewEvent
 }

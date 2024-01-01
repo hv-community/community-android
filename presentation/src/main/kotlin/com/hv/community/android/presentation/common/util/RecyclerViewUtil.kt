@@ -1,4 +1,4 @@
-package com.hv.community.android.presentation.util
+package com.hv.community.android.presentation.common.util
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.ListAdapter

@@ -2,6 +2,7 @@ package com.hv.community.android.data.repository.authentication
 
 import com.hv.community.android.data.remote.local.SharedPreferencesManager
 import com.hv.community.android.domain.repository.AuthenticationRepository
+import kotlinx.coroutines.delay
 
 class MockAuthenticationRepository(
     private val sharedPreferencesManager: SharedPreferencesManager
@@ -17,11 +18,20 @@ class MockAuthenticationRepository(
     override suspend fun getAccessToken(
         refreshToken: String
     ): Result<String> {
+        randomShortDelay()
         return Result.success("refresh_token")
     }
 
     override suspend fun decrypt(message: String): Result<String> {
         TODO("Not yet implemented")
+    }
+
+    private suspend fun randomShortDelay() {
+        delay(LongRange(100, 5000).random())
+    }
+
+    private suspend fun randomLongDelay() {
+        delay(LongRange(500, 2000).random())
     }
 
     companion object {

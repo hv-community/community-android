@@ -1,4 +1,4 @@
-package com.hv.community.android.presentation.util.coroutine.event
+package com.hv.community.android.presentation.common.util.coroutine.event
 
 import kotlinx.coroutines.flow.Flow
 

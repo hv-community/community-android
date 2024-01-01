@@ -4,6 +4,7 @@ import com.hv.community.android.data.remote.local.SharedPreferencesManager
 import com.hv.community.android.domain.model.user.UserSignIn
 import com.hv.community.android.domain.model.user.UserSignUp
 import com.hv.community.android.domain.repository.UserRepository
+import kotlinx.coroutines.delay
 
 class MockUserRepository(
     private val sharedPreferencesManager: SharedPreferencesManager
@@ -26,6 +27,7 @@ class MockUserRepository(
         nickname: String,
         password: String
     ): Result<UserSignUp> {
+        randomLongDelay()
         return Result.success(
             UserSignUp(
                 token = "email_token"
@@ -37,6 +39,7 @@ class MockUserRepository(
         email: String,
         password: String
     ): Result<UserSignIn> {
+        randomShortDelay()
         return Result.success(
             UserSignIn(
                 accessToken = "access_token",
@@ -48,6 +51,7 @@ class MockUserRepository(
     override suspend fun sendEmail(
         token: String
     ): Result<Unit> {
+        randomLongDelay()
         return Result.success(Unit)
     }
 
@@ -55,7 +59,16 @@ class MockUserRepository(
         token: String,
         verificationCode: String
     ): Result<Unit> {
+        randomShortDelay()
         return Result.success(Unit)
+    }
+
+    private suspend fun randomShortDelay() {
+        delay(LongRange(100, 5000).random())
+    }
+
+    private suspend fun randomLongDelay() {
+        delay(LongRange(500, 2000).random())
     }
 
     companion object {

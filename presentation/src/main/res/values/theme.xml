@@ -2,10 +2,46 @@
 <resources>
 
     <style name="Community" parent="Typography">
+        <item name="colorPrimary">@color/blue_400</item>
+        <item name="colorPrimaryVariant">@color/blue_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/blue_gray_200</item>
+        <item name="colorSecondaryVariant">@color/blue_gray_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorError">@color/red_400</item>
         <item name="confirmButtonStyle">@style/Community.ConfirmButton</item>
+        <item name="textInputStyle">@style/Community.TextInputLayout.FilledBox</item>
     </style>
 
     <style name="Community.ConfirmButton" parent="Typography.ConfirmButton">
         <item name="mainColorType">blue</item>
+    </style>
+
+    <style name="Community.TextInputLayout" parent="Base.Widget.MaterialComponents.TextInputLayout">
+        <item name="boxBackgroundColor">@color/gray_200</item>
+        <item name="boxStrokeColor">@color/blue_500</item>
+        <item name="boxStrokeErrorColor">@color/red_400</item>
+        <item name="errorTextColor">@color/red_900</item>
+        <item name="helperTextTextColor">@color/blue_gray_900</item>
+        <item name="hintTextColor">@color/blue_gray_400</item>
+        <item name="placeholderTextColor">@color/blue_gray_900</item>
+    </style>
+
+    <style name="Community.TextInputLayout.OutlinedBox" parent="Community.TextInputLayout">
+        <item name="materialThemeOverlay">
+            @style/ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox
+        </item>
+        <item name="boxCollapsedPaddingTop">0dp</item>
+    </style>
+
+    <style name="Community.TextInputLayout.FilledBox" parent="Community.TextInputLayout">
+        <item name="materialThemeOverlay">
+            @style/ThemeOverlay.MaterialComponents.TextInputEditText.FilledBox
+        </item>
+        <item name="boxBackgroundMode">filled</item>
+        <item name="boxCollapsedPaddingTop">10dp</item>
+        <item name="shapeAppearanceOverlay">
+            @style/ShapeAppearanceOverlay.MaterialComponents.TextInputLayout.FilledBox
+        </item>
     </style>
 </resources>

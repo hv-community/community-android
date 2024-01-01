@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Community Application</string>
+    <string name="login_detail_email_address">email address</string>
+    <string name="login_detail_password">password</string>
+    <string name="login_detail_email_error">올바른 이메일을 입력해주세요.</string>
+    <string name="login_detail_password_error">비밀번호를 입력해주세요.</string>
 </resources>

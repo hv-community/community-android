@@ -1,4 +1,4 @@
-package com.hv.community.android.presentation.util
+package com.hv.community.android.presentation.common.util
 
 import android.app.Activity
 import android.content.Intent

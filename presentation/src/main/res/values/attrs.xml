@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources />
+<resources>
+    <declare-styleable name="ActionBarView">
+        <attr name="android:text" />
+        <attr name="android:textColor" />
+        <attr name="isBackEnabled" format="boolean" />
+        <attr name="isSideEnabled" format="boolean" />
+        <attr name="isBackVisible" format="boolean" />
+        <attr name="isSideVisible" format="boolean" />
+        <attr name="sideIcon" format="color|reference" />
+        <attr name="sideTintColor" format="color" />
+    </declare-styleable>
+</resources>

@@ -11,7 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewModelScope
-import com.hv.community.android.presentation.util.coroutine.event.eventObserve
+import com.hv.community.android.presentation.common.util.coroutine.event.eventObserve
 import com.ray.rds.R
 import com.ray.rds.util.getDisplayWidth
 import com.ray.rds.window.alert.AlertDialogFragmentProvider

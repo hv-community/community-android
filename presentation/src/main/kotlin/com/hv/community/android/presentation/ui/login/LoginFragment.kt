@@ -1,11 +1,12 @@
 package com.hv.community.android.presentation.ui.login
 
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.hv.community.android.presentation.R
+import com.hv.community.android.presentation.common.base.BaseFragment
 import com.hv.community.android.presentation.databinding.FragmentLoginBinding
 import com.hv.community.android.presentation.model.login.LoginMethod
-import com.hv.community.android.presentation.common.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,6 +32,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
     private fun login(method: LoginMethod) {
         when (method) {
+            LoginMethod.Email -> {
+                findNavController().navigate(R.id.action_login_to_login_detail)
+            }
+
             else -> {
                 showMessageSnackBar(
                     message = "미구현입니다."

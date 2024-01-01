@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "com.ray.template"
+    namespace = "com.hv.community.android"
     compileSdk = libs.versions.sdk.compile.get().toInt()
 
     defaultConfig {
-        applicationId = "com.ray.template"
+        applicationId = "com.hv.community.android"
         minSdk = libs.versions.sdk.min.get().toInt()
         targetSdk = libs.versions.sdk.target.get().toInt()
         versionCode = libs.versions.app.versioncode.get().toInt()
@@ -24,13 +24,19 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             isDebuggable = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
         debug {
             isMinifyEnabled = false
             isShrinkResources = false
             isDebuggable = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
             applicationIdSuffix = ".debug"
         }
     }

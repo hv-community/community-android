@@ -17,7 +17,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "template"
+rootProject.name = "community"
 include(":app")
 include(":common")
 include(":presentation")

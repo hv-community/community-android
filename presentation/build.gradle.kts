@@ -11,7 +11,7 @@ plugins {
 }
 
 android {
-    namespace = "com.ray.template.presentation"
+    namespace = "com.hv.community.android.presentation"
     compileSdk = libs.versions.sdk.compile.get().toInt()
 
     defaultConfig {
@@ -20,10 +20,16 @@ android {
 
     buildTypes {
         debug {
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
         release {
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 

@@ -1,10 +1,12 @@
 package com.hv.community.android.domain.usecase.user
 
+import com.hv.community.android.domain.repository.AuthenticationRepository
 import com.hv.community.android.domain.repository.UserRepository
 import javax.inject.Inject
 
 class UserSignInUseCase @Inject constructor(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val authenticationRepository: AuthenticationRepository
 ) {
     suspend operator fun invoke(
         email: String,
@@ -14,8 +16,8 @@ class UserSignInUseCase @Inject constructor(
             email,
             password
         ).onSuccess {
-//            authRepository.accessToken = it.accessToken
-//            authRepository.refreshToken = it.refreshToken
+            authenticationRepository.accessToken = it.accessToken
+            authenticationRepository.refreshToken = it.refreshToken
         }.map { }
     }
 }

@@ -1,4 +1,4 @@
-package com.hv.community.android.data.repository
+package com.hv.community.android.data.repository.user
 
 import com.hv.community.android.data.remote.local.SharedPreferencesManager
 import com.hv.community.android.data.remote.network.api.UserApi

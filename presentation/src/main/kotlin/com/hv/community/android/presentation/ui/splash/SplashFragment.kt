@@ -1,6 +1,10 @@
 package com.hv.community.android.presentation.ui.splash
 
+import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.findNavController
+import com.hv.community.android.presentation.R
 import com.hv.community.android.presentation.databinding.FragmentSplashBinding
 import com.hv.community.android.presentation.ui.common.base.BaseFragment
 import com.hv.community.android.presentation.util.coroutine.event.eventObserve
@@ -27,7 +31,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
                 }
 
                 SplashViewEvent.Login.Fail -> {
-                    // TODO: 로그인 화면으로 이동
+                    findNavController().navigate(R.id.action_splash_to_login)
                 }
 
                 SplashViewEvent.Login.Error -> {
@@ -52,4 +56,12 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
             }
         }
     }
+
+    fun fragmentNavigatorExtras(
+        vararg sharedElements: Pair<View, String>
+    ): FragmentNavigator.Extras = FragmentNavigator.Extras.Builder().apply {
+        sharedElements.forEach { (view, name) ->
+            addSharedElement(view, name)
+        }
+    }.build()
 }

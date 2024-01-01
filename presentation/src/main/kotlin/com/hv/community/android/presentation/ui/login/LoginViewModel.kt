@@ -20,7 +20,4 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
         LoginMethod.Google,
         LoginMethod.Email
     )
-
-    init {
-    }
 }

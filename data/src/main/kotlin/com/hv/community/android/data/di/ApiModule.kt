@@ -1,6 +1,6 @@
 package com.hv.community.android.data.di
 
-import com.hv.community.android.data.remote.network.api.SampleApi
+import com.hv.community.android.data.remote.network.api.UserApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,7 +15,7 @@ internal object ApiModule {
     @Singleton
     fun provideSampleApi(
         retrofit: Retrofit
-    ): SampleApi {
-        return retrofit.create(SampleApi::class.java)
+    ): UserApi {
+        return retrofit.create(UserApi::class.java)
     }
 }

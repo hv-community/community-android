@@ -6,7 +6,7 @@ import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
 import com.hv.community.android.presentation.R
 import com.hv.community.android.presentation.databinding.FragmentSplashBinding
-import com.hv.community.android.presentation.ui.common.base.BaseFragment
+import com.hv.community.android.presentation.common.base.BaseFragment
 import com.hv.community.android.presentation.util.coroutine.event.eventObserve
 import com.ray.rds.window.alert.AlertDialogFragmentProvider
 import dagger.hilt.android.AndroidEntryPoint

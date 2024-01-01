@@ -1,4 +1,4 @@
-package com.hv.community.android.presentation.ui.common.base
+package com.hv.community.android.presentation.common.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewModelScope
 import com.hv.community.android.presentation.util.coroutine.event.eventObserve
+import com.ray.rds.R
+import com.ray.rds.util.getDisplayWidth
 import com.ray.rds.window.alert.AlertDialogFragmentProvider
 import com.ray.rds.window.loading.LoadingDialogFragmentProvider
 import com.ray.rds.window.snackbar.MessageSnackBar
@@ -21,9 +22,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-abstract class BaseFragment<B : ViewDataBinding>(
+abstract class BaseDialogFragment<B : ViewDataBinding>(
     private val inflater: (LayoutInflater, ViewGroup?, Boolean) -> B
-) : Fragment() {
+) : DialogFragment() {
 
     protected abstract val viewModel: BaseViewModel
 
@@ -53,9 +54,19 @@ abstract class BaseFragment<B : ViewDataBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initView()
+        initWidth()
         initObserver()
         observeViewModelError()
+    }
+
+    protected open fun initWidth() {
+        val maxWidth = getDisplayWidth()
+        val width = (maxWidth * 0.8).toInt()
+
+        dialog?.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.bg_modal)
     }
 
     protected open fun initView() = Unit
@@ -77,21 +88,21 @@ abstract class BaseFragment<B : ViewDataBinding>(
 
     fun DialogFragment.show() {
         if (
-            this@BaseFragment.activity?.isFinishing == false
-            && this@BaseFragment.activity?.isDestroyed == false
-            && !this@BaseFragment.childFragmentManager.isDestroyed
-            && !this@BaseFragment.childFragmentManager.isStateSaved
+            this@BaseDialogFragment.activity?.isFinishing == false
+            && this@BaseDialogFragment.activity?.isDestroyed == false
+            && !this@BaseDialogFragment.childFragmentManager.isDestroyed
+            && !this@BaseDialogFragment.childFragmentManager.isStateSaved
         ) {
-            show(this@BaseFragment.childFragmentManager, javaClass.simpleName)
+            show(this@BaseDialogFragment.childFragmentManager, javaClass.simpleName)
         }
     }
 
     protected fun showLoading() {
         if (
-            this@BaseFragment.activity?.isFinishing == false
-            && this@BaseFragment.activity?.isDestroyed == false
-            && !this@BaseFragment.parentFragmentManager.isDestroyed
-            && !this@BaseFragment.parentFragmentManager.isStateSaved
+            this@BaseDialogFragment.activity?.isFinishing == false
+            && this@BaseDialogFragment.activity?.isDestroyed == false
+            && !this@BaseDialogFragment.parentFragmentManager.isDestroyed
+            && !this@BaseDialogFragment.parentFragmentManager.isStateSaved
             && loadingDialog == null
         ) {
             loadingDialog = LoadingDialogFragmentProvider.makeLoadingDialog()
@@ -101,8 +112,8 @@ abstract class BaseFragment<B : ViewDataBinding>(
 
     protected fun hideLoading() {
         if (
-            this@BaseFragment.activity?.isFinishing == false
-            && this@BaseFragment.activity?.isDestroyed == false
+            this@BaseDialogFragment.activity?.isFinishing == false
+            && this@BaseDialogFragment.activity?.isDestroyed == false
             && loadingDialog?.parentFragmentManager?.isDestroyed == false
             && loadingDialog?.parentFragmentManager?.isStateSaved == false
             && loadingDialog != null
@@ -119,7 +130,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
         buttonText: String? = null,
         listener: (() -> Unit)? = null
     ) {
-        (binding.root as? ViewGroup)?.let { parent ->
+        (dialog?.window?.decorView as? ViewGroup)?.let { parent ->
             MessageSnackBar.make(
                 parent = parent,
                 anchorView = anchorView,

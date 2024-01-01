@@ -3,7 +3,7 @@ package com.hv.community.android.presentation.ui.splash
 import com.hv.community.android.domain.model.error.ServerException
 import com.hv.community.android.domain.usecase.user.UserGetLoginDataUseCase
 import com.hv.community.android.domain.usecase.user.UserSignInUseCase
-import com.hv.community.android.presentation.ui.common.base.BaseViewModel
+import com.hv.community.android.presentation.common.base.BaseViewModel
 import com.hv.community.android.presentation.util.coroutine.event.EventFlow
 import com.hv.community.android.presentation.util.coroutine.event.MutableEventFlow
 import com.hv.community.android.presentation.util.coroutine.event.asEventFlow

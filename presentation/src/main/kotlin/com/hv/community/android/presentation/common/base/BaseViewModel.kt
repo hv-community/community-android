@@ -1,4 +1,4 @@
-package com.hv.community.android.presentation.ui.common.base
+package com.hv.community.android.presentation.common.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

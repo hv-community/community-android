@@ -1,7 +1,7 @@
 package com.hv.community.android.presentation.ui.login
 
 import com.hv.community.android.presentation.model.login.LoginMethod
-import com.hv.community.android.presentation.ui.common.base.BaseViewModel
+import com.hv.community.android.presentation.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

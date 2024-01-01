@@ -1,8 +1,8 @@
-package com.hv.community.android.presentation.ui.main
+package com.hv.community.android.presentation.ui
 
 import androidx.activity.viewModels
 import com.hv.community.android.presentation.databinding.ActivityMainBinding
-import com.hv.community.android.presentation.ui.common.base.BaseActivity
+import com.hv.community.android.presentation.common.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

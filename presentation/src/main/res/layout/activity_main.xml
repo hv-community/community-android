@@ -6,7 +6,7 @@
 
         <variable
             name="vm"
-            type="com.hv.community.android.presentation.ui.main.MainViewModel" />
+            type="com.hv.community.android.presentation.ui.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

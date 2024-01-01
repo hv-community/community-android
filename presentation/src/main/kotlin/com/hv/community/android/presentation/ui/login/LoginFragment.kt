@@ -5,7 +5,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.hv.community.android.presentation.databinding.FragmentLoginBinding
 import com.hv.community.android.presentation.model.login.LoginMethod
-import com.hv.community.android.presentation.ui.common.base.BaseFragment
+import com.hv.community.android.presentation.common.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

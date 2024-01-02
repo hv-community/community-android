@@ -8,8 +8,8 @@ sealed interface LoginDetailViewEvent {
 
     sealed interface Login : LoginDetailViewEvent {
         data object Success : Login
-        data object Fail : Login
-        data object Error : Login
+        data class Fail(val exception: Throwable) : Login
+        data class Error(val exception: Throwable) : Login
     }
 
     data object GoRegistration : LoginDetailViewEvent

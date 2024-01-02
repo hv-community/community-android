@@ -31,23 +31,19 @@ class RegistrationFragment :
                     )
                 }
 
-                RegistrationViewEvent.Registration.Fail -> {
+                is RegistrationViewEvent.Registration.Fail -> {
                     AlertDialogFragmentProvider.makeAlertDialog(
                         title = "회원가입 에러",
-                        message = "회원가입에 실패했습니다.",
+                        message = event.exception.message,
                         onDismiss = {
                             requireActivity().finishAffinity()
                         }
                     ).show()
                 }
 
-                RegistrationViewEvent.Registration.Error -> {
+                is RegistrationViewEvent.Registration.Error -> {
                     AlertDialogFragmentProvider.makeAlertDialog(
-                        title = "회원가입 에러",
-                        message = "회원가입에 실패했습니다.",
-                        onDismiss = {
-                            requireActivity().finishAffinity()
-                        }
+                        title = "앗, 에러가 발생했어요!"
                     ).show()
                 }
             }

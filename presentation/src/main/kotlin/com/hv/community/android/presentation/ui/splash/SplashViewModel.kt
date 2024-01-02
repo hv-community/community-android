@@ -37,13 +37,11 @@ class SplashViewModel @Inject constructor(
                     userSignInUseCase(email, password)
                         .onSuccess {
                             _event.emit(SplashViewEvent.Login.Success)
-                        }.onFailure {
-                            if (it is ServerException) {
-                                // ID / PW 불일치
-                                _event.emit(SplashViewEvent.Login.Fail)
+                        }.onFailure { exception ->
+                            if (exception is ServerException) {
+                                _event.emit(SplashViewEvent.Login.Fail(exception))
                             } else {
-                                // 서버 에러
-                                _event.emit(SplashViewEvent.Login.Error)
+                                _event.emit(SplashViewEvent.Login.Error(exception))
                             }
                         }
                 }

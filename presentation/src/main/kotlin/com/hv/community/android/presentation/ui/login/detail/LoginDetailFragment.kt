@@ -29,23 +29,16 @@ class LoginDetailFragment :
                     findNavController().navigate(R.id.action_login_detail_to_community)
                 }
 
-                LoginDetailViewEvent.Login.Fail -> {
+                is LoginDetailViewEvent.Login.Fail -> {
                     AlertDialogFragmentProvider.makeAlertDialog(
                         title = "로그인 에러",
-                        message = "로그인에 실패했습니다.",
-                        onDismiss = {
-                            requireActivity().finishAffinity()
-                        }
+                        message = event.exception.message
                     ).show()
                 }
 
-                LoginDetailViewEvent.Login.Error -> {
+                is LoginDetailViewEvent.Login.Error -> {
                     AlertDialogFragmentProvider.makeAlertDialog(
-                        title = "로그인 에러",
-                        message = "로그인에 실패했습니다.",
-                        onDismiss = {
-                            requireActivity().finishAffinity()
-                        }
+                        title = "앗, 에러가 발생했어요!"
                     ).show()
                 }
             }

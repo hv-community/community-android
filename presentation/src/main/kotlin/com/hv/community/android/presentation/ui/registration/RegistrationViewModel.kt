@@ -137,14 +137,14 @@ class RegistrationViewModel @Inject constructor(
             password = password.value
         ).onSuccess {
             _event.emit(RegistrationViewEvent.Registration.Success)
-        }.onFailure {
-            when (it) {
+        }.onFailure { exception ->
+            when (exception) {
                 is ServerException -> {
-                    _event.emit(RegistrationViewEvent.Registration.Fail)
+                    _event.emit(RegistrationViewEvent.Registration.Fail(exception))
                 }
 
                 else -> {
-                    _event.emit(RegistrationViewEvent.Registration.Error)
+                    _event.emit(RegistrationViewEvent.Registration.Error(exception))
                 }
             }
         }

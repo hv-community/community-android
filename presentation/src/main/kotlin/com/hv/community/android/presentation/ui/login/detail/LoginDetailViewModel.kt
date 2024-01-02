@@ -114,14 +114,14 @@ class LoginDetailViewModel @Inject constructor(
             password = password.value
         ).onSuccess {
             _event.emit(LoginDetailViewEvent.Login.Success)
-        }.onFailure {
-            when (it) {
+        }.onFailure { exception ->
+            when (exception) {
                 is ServerException -> {
-                    _event.emit(LoginDetailViewEvent.Login.Fail)
+                    _event.emit(LoginDetailViewEvent.Login.Fail(exception))
                 }
 
                 else -> {
-                    _event.emit(LoginDetailViewEvent.Login.Error)
+                    _event.emit(LoginDetailViewEvent.Login.Error(exception))
                 }
             }
         }

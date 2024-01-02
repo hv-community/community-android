@@ -2,6 +2,7 @@ package com.hv.community.android.presentation.ui.registration.confirm
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.hv.community.android.presentation.R
 import com.hv.community.android.presentation.common.base.BaseFragment
 import com.hv.community.android.presentation.common.util.coroutine.event.eventObserve
 import com.hv.community.android.presentation.databinding.FragmentRegistrationConfirmBinding
@@ -25,26 +26,25 @@ class RegistrationConfirmFragment :
         fun registration(event: RegistrationConfirmViewEvent.Registration) {
             when (event) {
                 RegistrationConfirmViewEvent.Registration.Success -> {
-                    // TODO: 게시판으로 이동
-                }
-
-                RegistrationConfirmViewEvent.Registration.Fail -> {
                     AlertDialogFragmentProvider.makeAlertDialog(
-                        title = "회원가입 에러",
-                        message = "회원가입에 실패했습니다.",
+                        title = "회원가입 성공",
+                        message = "회원가입을 완료했습니다.\n로그인해주세요.",
                         onDismiss = {
-                            requireActivity().finishAffinity()
+                            findNavController().navigate(R.id.action_registration_confirm_to_login_detail)
                         }
                     ).show()
                 }
 
-                RegistrationConfirmViewEvent.Registration.Error -> {
+                is RegistrationConfirmViewEvent.Registration.Fail -> {
                     AlertDialogFragmentProvider.makeAlertDialog(
                         title = "회원가입 에러",
-                        message = "회원가입에 실패했습니다.",
-                        onDismiss = {
-                            requireActivity().finishAffinity()
-                        }
+                        message = event.exception.message
+                    ).show()
+                }
+
+                is RegistrationConfirmViewEvent.Registration.Error -> {
+                    AlertDialogFragmentProvider.makeAlertDialog(
+                        title = "앗, 에러가 발생했어요!"
                     ).show()
                 }
             }
@@ -66,23 +66,16 @@ class RegistrationConfirmFragment :
                     )
                 }
 
-                RegistrationConfirmViewEvent.Resend.Fail -> {
+                is RegistrationConfirmViewEvent.Resend.Fail -> {
                     AlertDialogFragmentProvider.makeAlertDialog(
                         title = "회원가입 에러",
-                        message = "회원가입에 실패했습니다.",
-                        onDismiss = {
-                            requireActivity().finishAffinity()
-                        }
+                        message = event.exception.message
                     ).show()
                 }
 
-                RegistrationConfirmViewEvent.Resend.Error -> {
+                is RegistrationConfirmViewEvent.Resend.Error -> {
                     AlertDialogFragmentProvider.makeAlertDialog(
-                        title = "회원가입 에러",
-                        message = "회원가입에 실패했습니다.",
-                        onDismiss = {
-                            requireActivity().finishAffinity()
-                        }
+                        title = "앗, 에러가 발생했어요!"
                     ).show()
                 }
             }

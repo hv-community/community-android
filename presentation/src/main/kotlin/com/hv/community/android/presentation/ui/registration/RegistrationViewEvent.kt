@@ -10,8 +10,8 @@ sealed interface RegistrationViewEvent {
 
     sealed interface Registration : RegistrationViewEvent {
         data object Success : Registration
-        data object Fail : Registration
-        data object Error : Registration
+        data class Fail(val exception: Throwable) : Registration
+        data class Error(val exception: Throwable) : Registration
     }
 
     data object GoBack : RegistrationViewEvent

@@ -89,7 +89,7 @@ class NetworkModule {
     }
 
     companion object {
-        private const val MUSIC_MATCH_BASE_URL = "https://api.musixmatch.com/"
+        private const val MUSIC_MATCH_BASE_URL = "https://hvcommunity.duckdns.org/"
     }
 }
 

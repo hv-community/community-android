@@ -28,22 +28,21 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
                     findNavController().navigate(R.id.action_splash_to_community)
                 }
 
-                SplashViewEvent.Login.Fail -> {
+                is SplashViewEvent.Login.Fail -> {
                     AlertDialogFragmentProvider.makeAlertDialog(
                         title = "로그인 에러",
-                        message = "로그인에 실패했습니다.",
+                        message = event.exception.message,
                         onDismiss = {
-                            requireActivity().finishAffinity()
+                            findNavController().navigate(R.id.action_splash_to_community)
                         }
                     ).show()
                 }
 
-                SplashViewEvent.Login.Error -> {
+                is SplashViewEvent.Login.Error -> {
                     AlertDialogFragmentProvider.makeAlertDialog(
-                        title = "로그인 에러",
-                        message = "로그인에 실패했습니다.",
+                        title = "앗, 에러가 발생했어요!",
                         onDismiss = {
-                            requireActivity().finishAffinity()
+                            findNavController().navigate(R.id.action_splash_to_community)
                         }
                     ).show()
                 }

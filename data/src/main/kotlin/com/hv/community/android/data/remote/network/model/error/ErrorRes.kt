@@ -5,8 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ErrorRes(
-    @SerialName("code")
-    val code: Int,
+    @SerialName("id")
+    val id: String,
     @SerialName("message")
     val message: String
 )

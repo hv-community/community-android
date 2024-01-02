@@ -103,14 +103,14 @@ class RegistrationConfirmViewModel @Inject constructor(
             verificationCode = verificationCode
         ).onSuccess {
             _event.emit(RegistrationConfirmViewEvent.Registration.Success)
-        }.onFailure {
-            when (it) {
+        }.onFailure { exception ->
+            when (exception) {
                 is ServerException -> {
-                    _event.emit(RegistrationConfirmViewEvent.Registration.Fail)
+                    _event.emit(RegistrationConfirmViewEvent.Registration.Fail(exception))
                 }
 
                 else -> {
-                    _event.emit(RegistrationConfirmViewEvent.Registration.Error)
+                    _event.emit(RegistrationConfirmViewEvent.Registration.Error(exception))
                 }
             }
         }
@@ -124,14 +124,14 @@ class RegistrationConfirmViewModel @Inject constructor(
         userSendEmailUseCase().onSuccess {
             verificationCode.value = ""
             _event.emit(RegistrationConfirmViewEvent.Resend.Success)
-        }.onFailure {
-            when (it) {
+        }.onFailure { exception ->
+            when (exception) {
                 is ServerException -> {
-                    _event.emit(RegistrationConfirmViewEvent.Resend.Fail)
+                    _event.emit(RegistrationConfirmViewEvent.Resend.Fail(exception))
                 }
 
                 else -> {
-                    _event.emit(RegistrationConfirmViewEvent.Resend.Error)
+                    _event.emit(RegistrationConfirmViewEvent.Resend.Error(exception))
                 }
             }
         }

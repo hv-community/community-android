@@ -97,7 +97,17 @@
     <fragment
         android:id="@+id/registration_confirm"
         android:name="com.hv.community.android.presentation.ui.registration.confirm.RegistrationConfirmFragment"
-        tools:layout="@layout/fragment_registration_confirm" />
+        tools:layout="@layout/fragment_registration_confirm">
+
+        <action
+            android:id="@+id/action_registration_confirm_to_login_detail"
+            app:destination="@id/login_detail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/login_detail" />
+    </fragment>
 
     <fragment
         android:id="@+id/community"

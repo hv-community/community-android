@@ -2,10 +2,13 @@ package com.hv.community.android.data.di
 
 import com.hv.community.android.data.remote.local.SharedPreferencesManager
 import com.hv.community.android.data.remote.network.api.AuthenticationApi
+import com.hv.community.android.data.remote.network.api.CommunityApi
 import com.hv.community.android.data.remote.network.api.UserApi
 import com.hv.community.android.data.repository.authentication.MockAuthenticationRepository
+import com.hv.community.android.data.repository.community.MockCommunityRepository
 import com.hv.community.android.data.repository.user.MockUserRepository
 import com.hv.community.android.domain.repository.AuthenticationRepository
+import com.hv.community.android.domain.repository.CommunityRepository
 import com.hv.community.android.domain.repository.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -34,5 +37,14 @@ internal object RepositoryModule {
     ): AuthenticationRepository {
         // return RealAuthenticationRepository(authenticationApi, sharedPreferencesManager)
         return MockAuthenticationRepository(sharedPreferencesManager)
+    }
+
+    @Provides
+    @Singleton
+    fun bindsCommunityRepository(
+        communityApi: CommunityApi
+    ): CommunityRepository {
+        // return RealCommunityRepository(communityApi)
+        return MockCommunityRepository()
     }
 }

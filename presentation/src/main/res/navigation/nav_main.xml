@@ -112,6 +112,6 @@
 
     <fragment
         android:id="@+id/community"
-        android:name="com.hv.community.android.presentation.ui.community.CommunityListFragment"
-        tools:layout="@layout/fragment_community_list" />
+        android:name="com.hv.community.android.presentation.ui.community.CommunityFragment"
+        tools:layout="@layout/fragment_community" />
 </navigation>

@@ -25,14 +25,24 @@
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/spacing_m"
+            android:layout_marginHorizontal="@dimen/spacing_s"
             android:textAppearance="?attr/typographyHeadline6"
             android:textColor="@color/blue_gray_900"
             app:layout_constraintBottom_toBottomOf="@id/icon"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/arrow"
             app:layout_constraintStart_toEndOf="@id/icon"
             app:layout_constraintTop_toTopOf="@id/icon"
             tools:text="블루 아카이브 채널" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/arrow"
+            android:layout_width="@dimen/size_icon"
+            android:layout_height="@dimen/size_icon"
+            android:layout_marginEnd="@dimen/spacing_m"
+            android:src="@drawable/ic_arrow_right"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/gray_700" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

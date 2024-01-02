@@ -1,28 +1,30 @@
 package com.hv.community.android.presentation.ui.community
 
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.hv.community.android.presentation.R
 import com.hv.community.android.presentation.common.base.BaseFragment
 import com.hv.community.android.presentation.common.util.coroutine.event.eventObserve
-import com.hv.community.android.presentation.databinding.FragmentCommunityListBinding
-import com.ray.rds.window.alert.AlertDialogFragmentProvider
+import com.hv.community.android.presentation.databinding.FragmentCommunityBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CommunityListFragment : BaseFragment<FragmentCommunityListBinding>(FragmentCommunityListBinding::inflate) {
+class CommunityFragment : BaseFragment<FragmentCommunityBinding>(FragmentCommunityBinding::inflate) {
 
-    override val viewModel: CommunityListViewModel by viewModels()
+    override val viewModel: CommunityViewModel by viewModels()
 
     override fun initView() {
         bind {
             vm = viewModel
-            lifecycleOwner = this@CommunityListFragment
+            lifecycleOwner = this@CommunityFragment
 
-            list.adapter = CommunityListListAdapter(
+            list.adapter = CommunityListAdapter(
                 onClick = { item ->
                     showMessageSnackBar(
                         message = "미구현입니다."
+                    )
+                },
+                onLongClick = { item ->
+                    showMessageSnackBar(
+                        message = item.description
                     )
                 }
             )

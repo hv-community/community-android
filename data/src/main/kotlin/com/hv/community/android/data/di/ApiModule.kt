@@ -15,7 +15,7 @@ internal object ApiModule {
     @Provides
     @Singleton
     fun provideUserApi(
-        retrofit: Retrofit
+        @NoAuthRetrofit retrofit: Retrofit
     ): UserApi {
         return retrofit.create(UserApi::class.java)
     }
@@ -23,7 +23,7 @@ internal object ApiModule {
     @Provides
     @Singleton
     fun provideAuthenticationApi(
-        retrofit: Retrofit
+        @NoAuthRetrofit retrofit: Retrofit
     ): AuthenticationApi {
         return retrofit.create(AuthenticationApi::class.java)
     }

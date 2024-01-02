@@ -32,7 +32,7 @@ interface CommunityApi {
         @Path("post_id") postId: Long
     ): Response<GetPostDetailRes>
 
-    @POST("/community/create-post/")
+    @POST("/community/create-post")
     suspend fun createPost(
         @Body body: CreatePostReq,
     ): Response<Unit>

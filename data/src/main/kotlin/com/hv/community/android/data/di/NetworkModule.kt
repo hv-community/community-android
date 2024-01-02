@@ -51,7 +51,7 @@ class NetworkModule {
         return Retrofit.Builder()
             .addConverterFactory(json.asConverterFactory(contentType))
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .baseUrl(MUSIC_MATCH_BASE_URL).apply {
+            .baseUrl(SERVER_URL).apply {
                 client(
                     OkHttpClient.Builder()
                         .apply {
@@ -74,7 +74,7 @@ class NetworkModule {
         return Retrofit.Builder()
             .addConverterFactory(json.asConverterFactory(contentType))
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .baseUrl(MUSIC_MATCH_BASE_URL).apply {
+            .baseUrl(SERVER_URL).apply {
                 client(
                     OkHttpClient.Builder()
                         .authenticator(tokenAuthenticator)
@@ -89,7 +89,7 @@ class NetworkModule {
     }
 
     companion object {
-        private const val MUSIC_MATCH_BASE_URL = "https://hvcommunity.duckdns.org/"
+        private const val SERVER_URL = "https://hvcommunity.duckdns.org"
     }
 }
 

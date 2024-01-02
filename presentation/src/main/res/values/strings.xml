@@ -26,6 +26,8 @@
     <string name="registration_confirm_verification_code">verification code</string>
     <string name="registration_confirm_verification_code_error">올바르지 않은 인증코드입니다.</string>
 
-    <string name="community_list_error">게시판을 일시적으로\n불러올 수 없습니다.</string>
+    <string name="community_error">게시판을 일시적으로\n불러올 수 없습니다.</string>
+
+    <string name="post_error">게시글을 일시적으로\n불러올 수 없습니다.</string>
 
 </resources>

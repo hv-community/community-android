@@ -113,5 +113,25 @@
     <fragment
         android:id="@+id/community"
         android:name="com.hv.community.android.presentation.ui.community.CommunityFragment"
-        tools:layout="@layout/fragment_community" />
+        tools:layout="@layout/fragment_community">
+
+        <action
+            android:id="@+id/action_community_to_post"
+            app:destination="@id/post"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/post"
+        android:name="com.hv.community.android.presentation.ui.community.post.PostFragment"
+        tools:layout="@layout/fragment_post">
+
+        <argument
+            android:name="communityId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
 </navigation>

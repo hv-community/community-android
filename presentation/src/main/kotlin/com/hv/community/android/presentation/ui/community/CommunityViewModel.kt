@@ -39,11 +39,11 @@ class CommunityViewModel @Inject constructor(
                     _state.value = CommunityState.Error
                     when (exception) {
                         is ServerException -> {
-                            _event.emit(CommunityViewEvent.Fail(exception))
+                            _event.emit(CommunityViewEvent.LoadCommunity.Fail(exception))
                         }
 
                         else -> {
-                            _event.emit(CommunityViewEvent.Error(exception))
+                            _event.emit(CommunityViewEvent.LoadCommunity.Error(exception))
                         }
                     }
                 }

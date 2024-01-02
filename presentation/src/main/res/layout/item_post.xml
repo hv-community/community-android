@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_s"
+            android:layout_marginTop="@dimen/spacing_s"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textAppearance="?attr/typographyBody2"
+            android:textColor="@color/blue_gray_900"
+            app:layout_constraintBottom_toTopOf="@id/nickname"
+            app:layout_constraintEnd_toStartOf="@id/container_comment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="싱글벙글 대한민국을 휩쓸었던 창업 아이템들 근황 .jpg" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/nickname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_m"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="@dimen/spacing_s"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textAppearance="?attr/typographyBody2"
+            android:textColor="@color/blue_gray_900"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/container_comment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:text="작성자 : 캥걸루" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/container_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_m"
+            android:clickable="false"
+            android:focusable="false"
+            app:cardBackgroundColor="@color/gray_200"
+            app:cardCornerRadius="@dimen/radius_main"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_xs"
+                android:layout_marginVertical="@dimen/spacing_xxs"
+                android:textAppearance="?attr/typographyBody2"
+                tools:text="0" />
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

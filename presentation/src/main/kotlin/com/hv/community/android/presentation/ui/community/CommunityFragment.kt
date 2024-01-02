@@ -1,6 +1,7 @@
 package com.hv.community.android.presentation.ui.community
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.hv.community.android.presentation.common.base.BaseFragment
 import com.hv.community.android.presentation.common.util.coroutine.event.eventObserve
 import com.hv.community.android.presentation.databinding.FragmentCommunityBinding
@@ -18,8 +19,8 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(FragmentCommuni
 
             list.adapter = CommunityListAdapter(
                 onClick = { item ->
-                    showMessageSnackBar(
-                        message = "미구현입니다."
+                    findNavController().navigate(
+                        CommunityFragmentDirections.actionCommunityToPost(item.id)
                     )
                 },
                 onLongClick = { item ->
@@ -32,9 +33,25 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(FragmentCommuni
     }
 
     override fun initObserver() {
+        fun loadCommunity(event: CommunityViewEvent.LoadCommunity) {
+            when (event) {
+                is CommunityViewEvent.LoadCommunity.Fail -> {
+
+                }
+
+                is CommunityViewEvent.LoadCommunity.Error -> {
+
+                }
+            }
+        }
+
         repeatOnStarted {
             viewModel.event.eventObserve { event ->
-
+                when (event) {
+                    is CommunityViewEvent.LoadCommunity -> {
+                        loadCommunity(event)
+                    }
+                }
             }
         }
     }

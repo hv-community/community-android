@@ -7,4 +7,5 @@ sealed interface PostViewEvent {
     }
 
     data object GoBack : PostViewEvent
+    data object GoPostWrite : PostViewEvent
 }

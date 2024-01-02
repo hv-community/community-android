@@ -12,7 +12,7 @@ class CreatePostUseCase @Inject constructor(
         title: String,
         nickname: String,
         password: String
-    ): Result<Unit> {
+    ): Result<Long> {
         return communityRepository.createPost(
             communityId = communityId,
             content = content,

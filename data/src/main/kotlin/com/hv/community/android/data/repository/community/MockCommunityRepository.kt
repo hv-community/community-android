@@ -138,9 +138,9 @@ class MockCommunityRepository : CommunityRepository {
         title: String,
         nickname: String,
         password: String
-    ): Result<Unit> {
+    ): Result<Long> {
         randomLongDelay()
-        return Result.success(Unit)
+        return Result.success(1L)
     }
 
     override suspend fun checkPostPassword(
@@ -174,9 +174,9 @@ class MockCommunityRepository : CommunityRepository {
         password: String,
         postId: Long,
         reply: String
-    ): Result<Unit> {
+    ): Result<Long> {
         randomShortDelay()
-        return Result.success(Unit)
+        return Result.success(1L)
     }
 
     override suspend fun checkReplyPassword(

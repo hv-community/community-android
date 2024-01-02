@@ -11,7 +11,7 @@ class CreateReplyUseCase @Inject constructor(
         password: String,
         postId: Long,
         reply: String
-    ): Result<Unit> {
+    ): Result<Long> {
         return communityRepository.createReply(
             nickname = nickname,
             password = password,

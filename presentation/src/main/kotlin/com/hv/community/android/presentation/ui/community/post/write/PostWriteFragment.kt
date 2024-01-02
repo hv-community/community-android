@@ -1,44 +1,41 @@
-package com.hv.community.android.presentation.ui.community.post
+package com.hv.community.android.presentation.ui.community.post.write
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.hv.community.android.presentation.common.base.BaseFragment
 import com.hv.community.android.presentation.common.util.coroutine.event.eventObserve
-import com.hv.community.android.presentation.databinding.FragmentPostBinding
+import com.hv.community.android.presentation.databinding.FragmentPostWriteBinding
 import com.ray.rds.window.alert.AlertDialogFragmentProvider
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::inflate) {
+class PostWriteFragment : BaseFragment<FragmentPostWriteBinding>(FragmentPostWriteBinding::inflate) {
 
-    override val viewModel: PostViewModel by viewModels()
+    override val viewModel: PostWriteViewModel by viewModels()
 
     override fun initView() {
         bind {
             vm = viewModel
-            lifecycleOwner = this@PostFragment
-
-            list.adapter = PostListAdapter(
-                onClick = { item ->
-                    showMessageSnackBar(
-                        message = "미구현입니다."
-                    )
-                }
-            )
+            lifecycleOwner = this@PostWriteFragment
         }
     }
 
     override fun initObserver() {
-        fun loadPost(event: PostViewEvent.LoadPost) {
+        fun loadPost(event: PostWriteViewEvent.WritePost) {
             when (event) {
-                is PostViewEvent.LoadPost.Fail -> {
+                is PostWriteViewEvent.WritePost.Success -> {
+                    // TODO : Go to post detail
+//                    findNavController().navigate(event.id)
+                }
+
+                is PostWriteViewEvent.WritePost.Fail -> {
                     AlertDialogFragmentProvider.makeAlertDialog(
                         title = "커뮤니티 에러",
                         message = event.exception.message
                     ).show()
                 }
 
-                is PostViewEvent.LoadPost.Error -> {
+                is PostWriteViewEvent.WritePost.Error -> {
                     AlertDialogFragmentProvider.makeAlertDialog(
                         title = "앗, 에러가 발생했어요!"
                     ).show()
@@ -48,21 +45,12 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
         repeatOnStarted {
             viewModel.event.eventObserve { event ->
                 when (event) {
-                    is PostViewEvent.LoadPost -> {
+                    is PostWriteViewEvent.WritePost -> {
                         loadPost(event)
                     }
 
-                    PostViewEvent.GoBack -> {
+                    PostWriteViewEvent.GoBack -> {
                         findNavController().navigateUp()
-                    }
-
-                    PostViewEvent.GoPostWrite -> {
-                        findNavController().navigate(
-                            PostFragmentDirections.actionPostToPostWrite(
-                                communityId = viewModel.arguments.communityId,
-                                title = viewModel.arguments.title
-                            )
-                        )
                     }
                 }
             }

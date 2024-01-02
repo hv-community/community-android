@@ -24,7 +24,10 @@ class NetworkModule {
 
     private val contentType = "application/json".toMediaType()
 
-    private val json = Json { ignoreUnknownKeys = true }
+    private val json = Json {
+        ignoreUnknownKeys = true
+        coerceInputValues = true
+    }
 
     @Provides
     @Singleton

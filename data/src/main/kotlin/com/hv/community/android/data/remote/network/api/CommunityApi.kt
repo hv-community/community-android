@@ -3,7 +3,9 @@ package com.hv.community.android.data.remote.network.api
 import com.hv.community.android.data.remote.network.model.community.CheckPostPasswordReq
 import com.hv.community.android.data.remote.network.model.community.CheckReplyPasswordReq
 import com.hv.community.android.data.remote.network.model.community.CreatePostReq
+import com.hv.community.android.data.remote.network.model.community.CreatePostRes
 import com.hv.community.android.data.remote.network.model.community.CreateReplyReq
+import com.hv.community.android.data.remote.network.model.community.CreateReplyRes
 import com.hv.community.android.data.remote.network.model.community.DeletePostReq
 import com.hv.community.android.data.remote.network.model.community.DeleteReplyReq
 import com.hv.community.android.data.remote.network.model.community.GetCommunityListRes
@@ -35,7 +37,7 @@ interface CommunityApi {
     @POST("/community/create-post")
     suspend fun createPost(
         @Body body: CreatePostReq,
-    ): Response<Unit>
+    ): Response<CreatePostRes>
 
     @POST("/community/check-post-password")
     suspend fun checkPostPassword(
@@ -55,7 +57,7 @@ interface CommunityApi {
     @POST("/community/create-reply")
     suspend fun createReply(
         @Body body: CreateReplyReq,
-    ): Response<Unit>
+    ): Response<CreateReplyRes>
 
     @POST("/community/check-reply-password")
     suspend fun checkReplyPassword(

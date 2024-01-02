@@ -96,7 +96,7 @@
                         android:id="@+id/input_verification_code"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress"
+                        android:inputType="numberDecimal"
                         android:maxLength="6"
                         android:text="@={vm.verificationCode}"
                         tools:text="123456" />

@@ -11,9 +11,9 @@ data class GetPostDetailRes(
     @SerialName("id")
     val id: Long,
     @SerialName("member")
-    val member: String,
+    val member: String = "",
     @SerialName("nickname")
-    val nickname: String,
+    val nickname: String = "",
     @SerialName("replies")
     val replies: List<GetPostDetailReplyRes>,
     @SerialName("reply_count")
@@ -38,9 +38,9 @@ data class GetPostDetailReplyRes(
     @SerialName("id")
     val id: Long,
     @SerialName("member")
-    val member: String,
+    val member: String = "",
     @SerialName("nickname")
-    val nickname: String,
+    val nickname: String = "",
     @SerialName("reply")
     val reply: String
 ) : DataMapper<Reply> {

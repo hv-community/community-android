@@ -54,7 +54,7 @@ class RealCommunityRepository(
         title: String,
         nickname: String,
         password: String
-    ): Result<Unit> {
+    ): Result<Long> {
         return communityApi.createPost(
             CreatePostReq(
                 communityId = communityId,
@@ -63,7 +63,7 @@ class RealCommunityRepository(
                 nickname = nickname,
                 password = password
             )
-        ).convertResponse()
+        ).convertResponse().map { it.postId }
     }
 
     override suspend fun checkPostPassword(
@@ -111,7 +111,7 @@ class RealCommunityRepository(
         password: String,
         postId: Long,
         reply: String
-    ): Result<Unit> {
+    ): Result<Long> {
         return communityApi.createReply(
             CreateReplyReq(
                 nickname = nickname,
@@ -119,7 +119,7 @@ class RealCommunityRepository(
                 postId = postId,
                 reply = reply
             )
-        ).convertResponse()
+        ).convertResponse().map { it.replyId }
     }
 
     override suspend fun checkReplyPassword(

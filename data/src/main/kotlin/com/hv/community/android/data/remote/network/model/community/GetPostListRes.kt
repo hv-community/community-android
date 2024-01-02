@@ -18,9 +18,9 @@ data class GetPostListItemRes(
     @SerialName("title")
     val title: String,
     @SerialName("member")
-    val member: String,
+    val member: String = "",
     @SerialName("nickname")
-    val nickname: String,
+    val nickname: String = "",
     @SerialName("reply_count")
     val replyCount: Int
 ) : DataMapper<Post> {

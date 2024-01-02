@@ -129,9 +129,38 @@
         android:name="com.hv.community.android.presentation.ui.community.post.PostFragment"
         tools:layout="@layout/fragment_post">
 
+        <action
+            android:id="@+id/action_post_to_post_write"
+            app:destination="@id/post_write"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
         <argument
             android:name="communityId"
             android:defaultValue="-1L"
             app:argType="long" />
+
+        <argument
+            android:name="title"
+            app:argType="string"
+            android:defaultValue='""' />
+    </fragment>
+
+    <fragment
+        android:id="@+id/post_write"
+        android:name="com.hv.community.android.presentation.ui.community.post.write.PostWriteFragment"
+        tools:layout="@layout/fragment_post_write">
+
+        <argument
+            android:name="communityId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+
+        <argument
+            android:name="title"
+            app:argType="string"
+            android:defaultValue='""' />
     </fragment>
 </navigation>

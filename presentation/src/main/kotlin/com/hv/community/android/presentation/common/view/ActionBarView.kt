@@ -99,7 +99,7 @@ class ActionBarView @JvmOverloads constructor(
                 this.isBackVisible = isBackVisible
             }
             attributes.getBoolean(R.styleable.ActionBarView_isSideVisible) { isSideVisible ->
-                this.isSideEnabled = isSideVisible
+                this.isSideVisible = isSideVisible
             }
             attributes.getDrawable(R.styleable.ActionBarView_sideIcon) { sideIcon ->
                 this.sideIcon = sideIcon

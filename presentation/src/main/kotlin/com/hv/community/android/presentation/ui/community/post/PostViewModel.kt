@@ -26,7 +26,7 @@ class PostViewModel @Inject constructor(
     private val _event: MutableEventFlow<PostViewEvent> = MutableEventFlow()
     val event: EventFlow<PostViewEvent> = _event.asEventFlow()
 
-    private val args: PostFragmentArgs by lazy {
+    val arguments: PostFragmentArgs by lazy {
         PostFragmentArgs.fromSavedStateHandle(savedStateHandle)
     }
 
@@ -37,7 +37,7 @@ class PostViewModel @Inject constructor(
         launch {
             _state.value = PostState.Loading
 
-            getPostListUseCase(args.communityId)
+            getPostListUseCase(arguments.communityId)
                 .onSuccess { communityList ->
                     _state.value = PostState.Init
                     _communityList.value = communityList
@@ -53,6 +53,12 @@ class PostViewModel @Inject constructor(
                         }
                     }
                 }
+        }
+    }
+
+    fun onWrite() {
+        launch {
+            _event.emit(PostViewEvent.GoPostWrite)
         }
     }
 

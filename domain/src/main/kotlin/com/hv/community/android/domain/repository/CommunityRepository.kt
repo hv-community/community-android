@@ -21,7 +21,7 @@ interface CommunityRepository {
         title: String,
         nickname: String,
         password: String,
-    ): Result<Unit>
+    ): Result<Long>
 
     suspend fun checkPostPassword(
         password: String,
@@ -45,7 +45,7 @@ interface CommunityRepository {
         password: String,
         postId: Long,
         reply: String
-    ): Result<Unit>
+    ): Result<Long>
 
     suspend fun checkReplyPassword(
         password: String,

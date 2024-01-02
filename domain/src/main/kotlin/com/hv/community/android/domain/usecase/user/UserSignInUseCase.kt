@@ -16,6 +16,8 @@ class UserSignInUseCase @Inject constructor(
             email,
             password
         ).onSuccess {
+            userRepository.email = email
+            userRepository.password = password
             authenticationRepository.accessToken = it.accessToken
             authenticationRepository.refreshToken = it.refreshToken
         }.map { }

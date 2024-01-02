@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.hv.community.android.presentation.ui.community.post.write.PostWriteViewModel" />
+
+        <import type="com.hv.community.android.presentation.ui.community.post.write.PostWriteState" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.hv.community.android.presentation.common.view.ActionBarView
+            android:id="@+id/actionbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{vm.arguments.title}"
+            app:isBackEnabled="true"
+            app:isBackVisible="true"
+            app:isSideVisible="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onBackClick="@{() -> vm.onBack()}"
+            app:onSideClick="@{() -> vm.onWrite()}"
+            app:sideEnabled="@{vm.state == PostWriteState.Init.INSTANCE}"
+            app:sideIcon="@drawable/ic_write" />
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/actionbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_xs"
+                    android:layout_marginTop="@dimen/spacing_xs"
+                    android:background="@color/transparent"
+                    android:enabled="@{vm.state == PostWriteState.Init.INSTANCE}"
+                    android:hint="@string/post_write_title_hint"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:text="@={vm.title}"
+                    android:textAppearance="?attr/typographySubtitle1"
+                    android:textColor="@color/blue_gray_900"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="‘아마존(Amazon)’ 성공 시크릿 비법 ‘플라이휠(Flywheel)’ 전략과 효과" />
+
+                <View
+                    android:id="@+id/divider_title"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/spacing_xxs"
+                    android:layout_marginTop="@dimen/spacing_xs"
+                    android:background="@color/blue_gray_100"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/nickname"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_xs"
+                    android:layout_marginTop="@dimen/spacing_xs"
+                    android:background="@color/transparent"
+                    android:enabled="@{vm.state == PostWriteState.Init.INSTANCE}"
+                    android:hint="@string/post_write_nickname_hint"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:text="@={vm.nickname}"
+                    android:textAppearance="?attr/typographySubtitle1"
+                    android:textColor="@color/blue_gray_900"
+                    app:layout_constraintEnd_toStartOf="@id/divider_nickname"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_title"
+                    app:visibleOrGone="@{!vm.isLogined}"
+                    tools:text="ㅇㅇ" />
+
+                <View
+                    android:id="@+id/divider_nickname"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@id/nickname"
+                    app:layout_constraintEnd_toStartOf="@id/password"
+                    app:layout_constraintStart_toEndOf="@id/nickname"
+                    app:layout_constraintTop_toTopOf="@id/nickname"
+                    app:visibleOrGone="@{!vm.isLogined}" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/password"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_xs"
+                    android:background="@color/transparent"
+                    android:enabled="@{vm.state == PostWriteState.Init.INSTANCE}"
+                    android:hint="@string/post_write_password_hint"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:text="@={vm.password}"
+                    android:textAppearance="?attr/typographySubtitle1"
+                    android:textColor="@color/blue_gray_900"
+                    app:layout_constraintBottom_toBottomOf="@id/divider_nickname"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/divider_nickname"
+                    app:layout_constraintTop_toTopOf="@id/divider_nickname"
+                    app:visibleOrGone="@{!vm.isLogined}"
+                    tools:text="1234" />
+
+                <View
+                    android:id="@+id/divider_password"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/spacing_xxs"
+                    android:layout_marginTop="@dimen/spacing_xs"
+                    android:background="@color/blue_gray_100"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/nickname"
+                    app:visibleOrGone="@{!vm.isLogined}" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_xs"
+                    android:layout_marginVertical="@dimen/spacing_xs"
+                    android:background="@color/transparent"
+                    android:enabled="@{vm.state == PostWriteState.Init.INSTANCE}"
+                    android:gravity="start|top"
+                    android:hint="@string/post_write_content_hint"
+                    android:inputType="textMultiLine"
+                    android:text="@={vm.content}"
+                    android:textAppearance="?attr/typographySubtitle1"
+                    android:textColor="@color/blue_gray_900"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_password"
+                    app:layout_constraintVertical_bias="0"
+                    tools:text="Back navigation is how users move backward through the history of screens they previously visited. All Android devices provide a Back button for this type of navigation, so you should not add a Back button to your app’s UI. Depending on the user’s Android device, this button might be a physical button or a software button.\n\nAndroid maintains a back stack of destinations as the user navigates throughout your application. This usually allows Android to properly navigate to previous destinations when the Back button is pressed. However, there are a few cases where your app might need to implement its own Back behavior in order to provide the best possible user experience. For example, when using a WebView, you might want to override the default Back button behavior to allow the user to navigate back through their web browsing history instead of the previous screens in your app.\n\n1.\n\n2.\n\n3.\n\n4.\n]nn5." />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/actionbar"
+            app:visibleOrGone="@{vm.state == PostWriteState.Loading.INSTANCE}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

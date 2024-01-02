@@ -15,6 +15,12 @@
             app:destination="@id/login"
             app:popUpTo="@id/splash"
             app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_splash_to_community"
+            app:destination="@id/community"
+            app:popUpTo="@id/splash"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -37,6 +43,12 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_login_to_community"
+            app:destination="@id/community"
+            app:popUpTo="@id/login"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -59,6 +71,12 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_login_detail_to_community"
+            app:destination="@id/community"
+            app:popUpTo="@id/login_detail"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -80,4 +98,9 @@
         android:id="@+id/registration_confirm"
         android:name="com.hv.community.android.presentation.ui.registration.confirm.RegistrationConfirmFragment"
         tools:layout="@layout/fragment_registration_confirm" />
+
+    <fragment
+        android:id="@+id/community"
+        android:name="com.hv.community.android.presentation.ui.community.CommunityListFragment"
+        tools:layout="@layout/fragment_community_list" />
 </navigation>

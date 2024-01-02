@@ -46,7 +46,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     private fun login(method: LoginMethod) {
         when (method) {
             LoginMethod.Anonymous -> {
-                // TODO : 게시판으로 이동
+                findNavController().navigate(R.id.action_login_to_community)
             }
 
             LoginMethod.Email -> {

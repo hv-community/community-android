@@ -25,7 +25,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
         fun login(event: SplashViewEvent.Login) {
             when (event) {
                 SplashViewEvent.Login.Success -> {
-                    // TODO : 게시판으로 이동
+                    findNavController().navigate(R.id.action_splash_to_community)
                 }
 
                 SplashViewEvent.Login.Fail -> {

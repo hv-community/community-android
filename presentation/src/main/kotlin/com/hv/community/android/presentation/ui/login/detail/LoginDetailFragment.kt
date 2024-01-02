@@ -26,7 +26,7 @@ class LoginDetailFragment :
         fun login(event: LoginDetailViewEvent.Login) {
             when (event) {
                 LoginDetailViewEvent.Login.Success -> {
-                    // TODO : 게시판으로 이동
+                    findNavController().navigate(R.id.action_login_detail_to_community)
                 }
 
                 LoginDetailViewEvent.Login.Fail -> {

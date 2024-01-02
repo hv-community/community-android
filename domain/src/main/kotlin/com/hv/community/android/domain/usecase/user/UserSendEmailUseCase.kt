@@ -9,8 +9,6 @@ class UserSendEmailUseCase @Inject constructor(
     suspend operator fun invoke(): Result<Unit> {
         return userRepository.sendEmail(
             userRepository.emailToken
-        ).onSuccess {
-            userRepository.emailToken = ""
-        }.map { }
+        ).map { }
     }
 }

@@ -8,5 +8,4 @@ sealed interface SplashViewEvent {
     }
 
     data object GoLogin : SplashViewEvent
-    data object GoRegistrationConfirm : SplashViewEvent
 }

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.hv.community.android.presentation.ui.registration.confirm.RegistrationConfirmViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.hv.community.android.presentation.common.view.ActionBarView
+            android:id="@+id/actionbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/registration_confirm_title"
+            app:isBackEnabled="true"
+            app:isBackVisible="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onBackClick="@{() -> vm.onBack()}" />
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/actionbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_m"
+                    android:layout_marginTop="@dimen/spacing_xl"
+                    android:text="@string/registration_confirm_description"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    android:textColor="@color/blue_gray_900"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/container_email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_m"
+                    android:layout_marginTop="@dimen/spacing_s"
+                    android:enabled="false"
+                    android:hint="@string/registration_confirm_email"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/description">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/input_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:text="@{vm.email}"
+                        tools:text="hello1234@gmail.com" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/container_verification_code"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_m"
+                    android:layout_marginTop="@dimen/spacing_s"
+                    android:enabled="@{!vm.isLoading}"
+                    android:hint="@string/registration_confirm_verification_code"
+                    app:endIconDrawable="@drawable/ic_mail_send"
+                    app:endIconMode="custom"
+                    app:endIconOnClickListener="@{() -> vm.onResend()}"
+                    app:error="@{vm.isVerificationCodeValid ? null : @string/registration_confirm_verification_code_error}"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/container_email">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/input_verification_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="6"
+                        android:text="@={vm.verificationCode}"
+                        tools:text="123456" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.ray.rds.view.button.ConfirmButton
+                    android:id="@+id/confirm"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/spacing_l"
+                    android:onClick="@{() -> vm.onConfirm()}"
+                    android:text="@string/confirm"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:loading="@{vm.isLoading}"
+                    app:priority="main" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

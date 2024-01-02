@@ -33,11 +33,7 @@ class SplashViewModel @Inject constructor(
             val hasEmailToken = userHasEmailTokenUseCase()
 
             when {
-                hasEmailToken -> {
-                    _event.emit(SplashViewEvent.GoRegistrationConfirm)
-                }
-
-                email.isNotEmpty() && password.isNotEmpty() -> {
+                email.isNotEmpty() && password.isNotEmpty() && !hasEmailToken -> {
                     userSignInUseCase(email, password)
                         .onSuccess {
                             _event.emit(SplashViewEvent.Login.Success)

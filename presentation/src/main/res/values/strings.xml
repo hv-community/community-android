@@ -20,4 +20,10 @@
     <string name="registration_password_confirm">password confirm</string>
     <string name="registration_password_confirm_error">비밀번호가 일치하지 않습니다.</string>
 
+    <string name="registration_confirm_title">Registration Confirm</string>
+    <string name="registration_confirm_description">작성해주신 이메일로\n6자리 인증코드를 전송했습니다.\n이메일을 확인해주세요.</string>
+    <string name="registration_confirm_email">email</string>
+    <string name="registration_confirm_verification_code">verification code</string>
+    <string name="registration_confirm_verification_code_error">올바르지 않은 인증코드입니다.</string>
+
 </resources>

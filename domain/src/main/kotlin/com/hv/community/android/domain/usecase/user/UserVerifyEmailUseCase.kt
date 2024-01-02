@@ -12,6 +12,8 @@ class UserVerifyEmailUseCase @Inject constructor(
         return userRepository.verifyEmail(
             userRepository.emailToken,
             verificationCode
-        ).map { }
+        ).onSuccess {
+            userRepository.emailToken = ""
+        }.map { }
     }
 }

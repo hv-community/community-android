@@ -19,7 +19,7 @@ class RealUserRepository(
 
     override var emailToken: String
         set(value) = sharedPreferencesManager.setString(EMAIL_TOKEN, value)
-        get() = sharedPreferencesManager.getString(PASSWORD, "")
+        get() = sharedPreferencesManager.getString(EMAIL_TOKEN, "")
 
     override var email: String
         set(value) = sharedPreferencesManager.setString(EMAIL, value)

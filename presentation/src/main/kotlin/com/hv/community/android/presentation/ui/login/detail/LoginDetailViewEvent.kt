@@ -13,6 +13,7 @@ sealed interface LoginDetailViewEvent {
     }
 
     data object GoRegistration : LoginDetailViewEvent
+    data object GoRegistrationConfirm : LoginDetailViewEvent
 
     data object GoBack : LoginDetailViewEvent
 }

@@ -26,7 +26,7 @@ class LoginDetailFragment :
         fun login(event: LoginDetailViewEvent.Login) {
             when (event) {
                 LoginDetailViewEvent.Login.Success -> {
-                    // TODO: 메인 화면으로 이동
+                    // TODO : 게시판으로 이동
                 }
 
                 LoginDetailViewEvent.Login.Fail -> {
@@ -77,6 +77,12 @@ class LoginDetailFragment :
                     LoginDetailViewEvent.GoRegistration -> {
                         findNavController().navigate(
                             R.id.action_login_detail_to_registration
+                        )
+                    }
+
+                    LoginDetailViewEvent.GoRegistrationConfirm -> {
+                        findNavController().navigate(
+                            R.id.action_login_detail_to_registration_confirm
                         )
                     }
 

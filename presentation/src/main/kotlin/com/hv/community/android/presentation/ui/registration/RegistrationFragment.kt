@@ -2,6 +2,7 @@ package com.hv.community.android.presentation.ui.registration
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.hv.community.android.presentation.R
 import com.hv.community.android.presentation.common.base.BaseFragment
 import com.hv.community.android.presentation.common.util.coroutine.event.eventObserve
 import com.hv.community.android.presentation.databinding.FragmentRegistrationBinding
@@ -22,10 +23,12 @@ class RegistrationFragment :
     }
 
     override fun initObserver() {
-        fun login(event: RegistrationViewEvent.Registration) {
+        fun registration(event: RegistrationViewEvent.Registration) {
             when (event) {
                 RegistrationViewEvent.Registration.Success -> {
-                    // TODO: RegistrationConfirm 로 이동
+                    findNavController().navigate(
+                        R.id.action_registration_to_registration_confirm
+                    )
                 }
 
                 RegistrationViewEvent.Registration.Fail -> {
@@ -52,7 +55,6 @@ class RegistrationFragment :
 
         fun validation(event: RegistrationViewEvent.Validation) {
             when (event) {
-
                 RegistrationViewEvent.Validation.InvalidNickname -> {
                     binding.inputNickname.requestFocus()
                 }
@@ -75,7 +77,7 @@ class RegistrationFragment :
             viewModel.event.eventObserve { event ->
                 when (event) {
                     is RegistrationViewEvent.Registration -> {
-                        login(event)
+                        registration(event)
                     }
 
                     is RegistrationViewEvent.Validation -> {

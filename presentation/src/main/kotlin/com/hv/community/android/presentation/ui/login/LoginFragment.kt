@@ -5,6 +5,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.hv.community.android.presentation.R
 import com.hv.community.android.presentation.common.base.BaseFragment
+import com.hv.community.android.presentation.common.util.coroutine.event.eventObserve
 import com.hv.community.android.presentation.databinding.FragmentLoginBinding
 import com.hv.community.android.presentation.model.login.LoginMethod
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,8 +31,24 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         }
     }
 
+    override fun initObserver() {
+        repeatOnStarted {
+            viewModel.event.eventObserve { event ->
+                when (event) {
+                    LoginViewEvent.GoRegistrationConfirm -> {
+                        findNavController().navigate(R.id.action_login_to_registration_confirm)
+                    }
+                }
+            }
+        }
+    }
+
     private fun login(method: LoginMethod) {
         when (method) {
+            LoginMethod.Anonymous -> {
+                // TODO : 게시판으로 이동
+            }
+
             LoginMethod.Email -> {
                 findNavController().navigate(R.id.action_login_to_login_detail)
             }

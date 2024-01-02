@@ -29,6 +29,14 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_login_to_registration_confirm"
+            app:destination="@id/registration_confirm"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -43,10 +51,33 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_login_detail_to_registration_confirm"
+            app:destination="@id/registration_confirm"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
         android:id="@+id/registration"
         android:name="com.hv.community.android.presentation.ui.registration.RegistrationFragment"
-        tools:layout="@layout/fragment_registration" />
+        tools:layout="@layout/fragment_registration">
+
+        <action
+            android:id="@+id/action_registration_to_registration_confirm"
+            app:destination="@id/registration_confirm"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/login_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registration_confirm"
+        android:name="com.hv.community.android.presentation.ui.registration.confirm.RegistrationConfirmFragment"
+        tools:layout="@layout/fragment_registration_confirm" />
 </navigation>

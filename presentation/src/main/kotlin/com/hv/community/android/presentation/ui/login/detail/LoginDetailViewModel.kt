@@ -2,6 +2,7 @@ package com.hv.community.android.presentation.ui.login.detail
 
 import androidx.lifecycle.viewModelScope
 import com.hv.community.android.domain.model.error.ServerException
+import com.hv.community.android.domain.usecase.user.UserHasEmailTokenUseCase
 import com.hv.community.android.domain.usecase.user.UserSignInUseCase
 import com.hv.community.android.presentation.common.REGEX_EMAIL
 import com.hv.community.android.presentation.common.base.BaseViewModel
@@ -19,7 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginDetailViewModel @Inject constructor(
-    private val userSignInUseCase: UserSignInUseCase
+    private val userSignInUseCase: UserSignInUseCase,
+    private val userHasEmailTokenUseCase: UserHasEmailTokenUseCase
 ) : BaseViewModel() {
 
     private val _state: MutableStateFlow<LoginDetailState> = MutableStateFlow(LoginDetailState.Init)
@@ -88,7 +90,13 @@ class LoginDetailViewModel @Inject constructor(
 
     fun onRegistration() {
         launch {
-            _event.emit(LoginDetailViewEvent.GoRegistration)
+            val hasEmailToken = userHasEmailTokenUseCase()
+
+            if (hasEmailToken) {
+                _event.emit(LoginDetailViewEvent.GoRegistrationConfirm)
+            } else {
+                _event.emit(LoginDetailViewEvent.GoRegistration)
+            }
         }
     }
 

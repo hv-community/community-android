@@ -3,6 +3,7 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 plugins {
     id("com.android.application")
     id("dagger.hilt.android.plugin")
+    id("io.sentry.android.gradle")
     kotlin("android")
     kotlin("kapt")
 }
@@ -17,6 +18,8 @@ android {
         targetSdk = libs.versions.sdk.target.get().toInt()
         versionCode = libs.versions.app.versioncode.get().toInt()
         versionName = libs.versions.app.versionname.get()
+
+        manifestPlaceholders["dsnToken"] = getLocalProperty("dsn.sentry")
     }
 
     buildTypes {

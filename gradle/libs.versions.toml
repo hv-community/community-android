@@ -41,6 +41,7 @@ leakcanary = "2.12"
 # Common
 timber = "5.0.1"
 ted-permission = "3.3.0"
+sentry = "4.1.1"
 
 [libraries]
 # Kotlin
@@ -96,6 +97,7 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 androidx-navigation-safeargs = { id = "androidx.navigation.safeargs", version.ref = "androidx-navigation" }
+sentry = { id = "io.sentry.android.gradle", version.ref = "sentry" }
 
 [bundles]
 kotlin = ["kotlin", "kotlinx-coroutines-android", "kotlinx-coroutines-core"]

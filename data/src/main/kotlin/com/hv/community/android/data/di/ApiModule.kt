@@ -2,6 +2,7 @@ package com.hv.community.android.data.di
 
 import com.hv.community.android.data.remote.network.api.AuthenticationApi
 import com.hv.community.android.data.remote.network.api.CommunityApi
+import com.hv.community.android.data.remote.network.api.SignUpApi
 import com.hv.community.android.data.remote.network.api.UserApi
 import dagger.Module
 import dagger.Provides
@@ -15,8 +16,16 @@ import javax.inject.Singleton
 internal object ApiModule {
     @Provides
     @Singleton
-    fun provideUserApi(
+    fun provideSignUpApi(
         @NoAuthRetrofit retrofit: Retrofit
+    ): SignUpApi {
+        return retrofit.create(SignUpApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserApi(
+        @AuthRetrofit retrofit: Retrofit
     ): UserApi {
         return retrofit.create(UserApi::class.java)
     }

@@ -1,12 +1,12 @@
 package com.hv.community.android.domain.usecase.user
 
-import com.hv.community.android.domain.repository.UserRepository
+import com.hv.community.android.domain.repository.SignUpRepository
 import javax.inject.Inject
 
 class UserHasEmailTokenUseCase @Inject constructor(
-    private val userRepository: UserRepository
+    private val signUpRepository: SignUpRepository
 ) {
     operator fun invoke(): Boolean {
-        return userRepository.emailToken.isNotEmpty()
+        return signUpRepository.emailToken.isNotEmpty()
     }
 }

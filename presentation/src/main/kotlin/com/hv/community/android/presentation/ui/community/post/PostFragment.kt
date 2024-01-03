@@ -20,8 +20,10 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
 
             list.adapter = PostListAdapter(
                 onClick = { item ->
-                    showMessageSnackBar(
-                        message = "미구현입니다."
+                    findNavController().navigate(
+                        PostFragmentDirections.actionPostToPostDetail(
+                            item.id
+                        )
                     )
                 }
             )

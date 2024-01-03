@@ -1,14 +1,14 @@
 package com.hv.community.android.domain.usecase.user
 
-import com.hv.community.android.domain.repository.UserRepository
+import com.hv.community.android.domain.repository.SignUpRepository
 import javax.inject.Inject
 
 class UserSendEmailUseCase @Inject constructor(
-    private val userRepository: UserRepository
+    private val signUpRepository: SignUpRepository
 ) {
     suspend operator fun invoke(): Result<Unit> {
-        return userRepository.sendEmail(
-            userRepository.emailToken
+        return signUpRepository.sendEmail(
+            signUpRepository.emailToken
         ).map { }
     }
 }

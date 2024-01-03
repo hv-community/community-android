@@ -1,24 +1,24 @@
 package com.hv.community.android.domain.usecase.user
 
-import com.hv.community.android.domain.repository.UserRepository
+import com.hv.community.android.domain.repository.SignUpRepository
 import javax.inject.Inject
 
 class UserSignUpUseCase @Inject constructor(
-    private val userRepository: UserRepository
+    private val signUpRepository: SignUpRepository
 ) {
     suspend operator fun invoke(
         email: String,
         nickname: String,
         password: String
     ): Result<Unit> {
-        return userRepository.signUp(
+        return signUpRepository.signUp(
             email,
             nickname,
             password
         ).onSuccess {
-            userRepository.email = email
-            userRepository.password = password
-            userRepository.emailToken = it.token
+            signUpRepository.email = email
+            signUpRepository.password = password
+            signUpRepository.emailToken = it.token
         }.map { }
     }
 }

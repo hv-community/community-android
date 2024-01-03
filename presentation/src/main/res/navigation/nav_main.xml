@@ -137,6 +137,14 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
 
+        <action
+            android:id="@+id/action_post_to_post_detail"
+            app:destination="@id/post_detail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
         <argument
             android:name="communityId"
             android:defaultValue="-1L"
@@ -144,8 +152,8 @@
 
         <argument
             android:name="title"
-            app:argType="string"
-            android:defaultValue='""' />
+            android:defaultValue='""'
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -160,7 +168,37 @@
 
         <argument
             android:name="title"
-            app:argType="string"
-            android:defaultValue='""' />
+            android:defaultValue='""'
+            app:argType="string" />
     </fragment>
+
+    <fragment
+        android:id="@+id/post_detail"
+        android:name="com.hv.community.android.presentation.ui.community.post.detail.PostDetailFragment"
+        tools:layout="@layout/fragment_post_detail">
+
+        <action
+            android:id="@+id/action_post_detail_to_post_detail_more"
+            app:destination="@id/post_detail_more"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <argument
+            android:name="postId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/post_detail_more"
+        android:name="com.hv.community.android.presentation.ui.community.post.detail.more.PostDetailMoreDialogFragment"
+        tools:layout="@layout/dialog_post_detail_more">
+
+<!--        <argument-->
+<!--            android:name="userId"-->
+<!--            android:defaultValue="-1L"-->
+<!--            app:argType="long" />-->
+    </dialog>
 </navigation>

@@ -29,7 +29,7 @@ interface CommunityApi {
         @Path("community_id") communityId: Long
     ): Response<GetPostListRes>
 
-    @GET("/community/get-post-detail/{post-id}")
+    @GET("/community/get-post-detail/{post_id}")
     suspend fun getPostDetail(
         @Path("post_id") postId: Long
     ): Response<GetPostDetailRes>

@@ -19,7 +19,9 @@ data class GetPostDetailRes(
     @SerialName("reply_count")
     val replyCount: Int,
     @SerialName("title")
-    val title: String
+    val title: String,
+    @SerialName("content")
+    val content: String
 ) : DataMapper<PostDetail> {
     override fun toDomain(): PostDetail {
         return PostDetail(
@@ -28,7 +30,8 @@ data class GetPostDetailRes(
             nickname = nickname,
             replies = replies.map { it.toDomain() },
             replyCount = replyCount,
-            title = title
+            title = title,
+            content = content
         )
     }
 }

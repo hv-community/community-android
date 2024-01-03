@@ -35,4 +35,5 @@
     <string name="post_write_password_hint">비밀번호</string>
     <string name="post_write_title_hint">제목을 입력해주세요.</string>
     <string name="post_write_content_hint">내용을 입력해주세요.</string>
+    <string name="post_detail_more_title">게시글 관리</string>
 </resources>

@@ -5,6 +5,7 @@ import androidx.navigation.fragment.findNavController
 import com.hv.community.android.presentation.R
 import com.hv.community.android.presentation.common.base.BaseFragment
 import com.hv.community.android.presentation.common.util.coroutine.event.eventObserve
+import com.hv.community.android.presentation.common.util.showKeyboard
 import com.hv.community.android.presentation.databinding.FragmentRegistrationConfirmBinding
 import com.ray.rds.window.alert.AlertDialogFragmentProvider
 import dagger.hilt.android.AndroidEntryPoint
@@ -84,7 +85,7 @@ class RegistrationConfirmFragment :
         fun validation(event: RegistrationConfirmViewEvent.Validation) {
             when (event) {
                 RegistrationConfirmViewEvent.Validation.InvalidVerificationCode -> {
-                    binding.inputVerificationCode.requestFocus()
+                    binding.inputVerificationCode.showKeyboard()
                 }
             }
         }

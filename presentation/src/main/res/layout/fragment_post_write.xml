@@ -99,6 +99,7 @@
                     android:id="@+id/divider_nickname"
                     android:layout_width="1dp"
                     android:layout_height="0dp"
+                    android:background="@color/blue_gray_100"
                     app:layout_constraintBottom_toBottomOf="@id/nickname"
                     app:layout_constraintEnd_toStartOf="@id/password"
                     app:layout_constraintStart_toEndOf="@id/nickname"

@@ -1,6 +1,7 @@
 package com.hv.community.android.domain.model.user
 
 data class UserProfile(
-    val email: String,
-    val name: String,
+    val id: Long = 0L,
+    val email: String = "",
+    val nickname: String = "",
 )

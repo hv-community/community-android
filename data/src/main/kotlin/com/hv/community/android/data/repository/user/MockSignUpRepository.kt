@@ -64,7 +64,7 @@ class MockSignUpRepository(
     }
 
     private suspend fun randomShortDelay() {
-        delay(LongRange(100, 5000).random())
+        delay(LongRange(100, 500).random())
     }
 
     private suspend fun randomLongDelay() {

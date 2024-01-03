@@ -39,7 +39,7 @@ class MockCommunityRepository : CommunityRepository {
                     title = "공지사항",
                     member = "Admin",
                     nickname = "",
-                    replyCount = 1
+                    replyCount = 0
                 ),
                 Post(
                     id = 2L,
@@ -53,7 +53,7 @@ class MockCommunityRepository : CommunityRepository {
                     title = "정상 영업중",
                     member = "Admin",
                     nickname = "",
-                    replyCount = 2
+                    replyCount = 13
                 ),
             )
         )
@@ -72,13 +72,26 @@ class MockCommunityRepository : CommunityRepository {
                     replies = listOf(
                         Reply(
                             id = 1L,
-                            member = "Admin",
+                            member = "",
+                            nickname = "ㅇㅇ",
+                            reply = "이미 하고 계신 일이 산더미인데도 불구하고 유저들을 위해 움직이시는 제작진분들께 감사함을 느낍니다.\n\n겨울철 몸 조심하시고 이미 찾아온 남반구 키보토스의 여름, 기대하고 있겠습니다. "
+                        ),
+                        Reply(
+                            id = 2L,
+                            member = "철새",
                             nickname = "",
-                            reply = "안녕하세요. 블루 아카이브 운영자입니다."
+                            reply = "유저와 소통 항상 감사드립니다 용하PD님 앞으로 계속 화이팅입니다!!"
+                        ),
+                        Reply(
+                            id = 3L,
+                            member = "황새",
+                            nickname = "",
+                            reply = "블아... 사랑합니다..."
                         )
                     ),
-                    replyCount = 1,
-                    title = "공지사항"
+                    replyCount = 3,
+                    title = "공지사항",
+                    content = "안녕하세요.\n\n블루 아카이브 X PEER 팝업 공식 계정입니다.\n\n금일 팝업 스토어 첫 날을 운영하며, 방문해주신 선생님 그리고 방문 예정이신 선생님께 많은 심려를 끼쳐 드려 정말 죄송합니다. 선생님들께서 전달 주신 우려사항, 그리고 제보에 대해 팝업 운영사와 제품 제조사를 통해 빠르게 확인된 이슈에 대해 설명 드리겠습니다. 관련하여 안내가 매우 늦게 이뤄진 점 대단히 송구합니다.\n"
                 )
             )
 
@@ -89,44 +102,58 @@ class MockCommunityRepository : CommunityRepository {
                     nickname = "",
                     replies = listOf(
                         Reply(
-                            id = 2L,
-                            member = "Admin",
-                            nickname = "",
-                            reply = "안녕하세요. 블루 아카이브 운영자입니다."
+                            id = 4L,
+                            member = "",
+                            nickname = "ㅇㅇ",
+                            reply = "이미 하고 계신 일이 산더미인데도 불구하고 유저들을 위해 움직이시는 제작진분들께 감사함을 느낍니다.\n\n겨울철 몸 조심하시고 이미 찾아온 남반구 키보토스의 여름, 기대하고 있겠습니다. "
                         ),
                         Reply(
-                            id = 3L,
-                            member = "Admin",
+                            id = 5L,
+                            member = "철새",
                             nickname = "",
-                            reply = "안녕하세요. 블루 아카이브 운영자입니다."
+                            reply = "유저와 소통 항상 감사드립니다 용하PD님 앞으로 계속 화이팅입니다!!"
+                        ),
+                        Reply(
+                            id = 6L,
+                            member = "황새",
+                            nickname = "",
+                            reply = "블아... 사랑합니다..."
                         )
                     ),
-                    replyCount = 2,
-                    title = "서버 점검 안내"
+                    replyCount = 3,
+                    title = "서버 점검 안내",
+                    content = "안녕하세요.\n\n블루 아카이브 X PEER 팝업 공식 계정입니다.\n\n금일 팝업 스토어 첫 날을 운영하며, 방문해주신 선생님 그리고 방문 예정이신 선생님께 많은 심려를 끼쳐 드려 정말 죄송합니다. 선생님들께서 전달 주신 우려사항, 그리고 제보에 대해 팝업 운영사와 제품 제조사를 통해 빠르게 확인된 이슈에 대해 설명 드리겠습니다. 관련하여 안내가 매우 늦게 이뤄진 점 대단히 송구합니다.\n"
                 )
             )
 
             else -> Result.success(
                 PostDetail(
                     id = 3L,
-                    member = "Admin",
-                    nickname = "",
+                    member = "",
+                    nickname = "ㅇㅇ",
                     replies = listOf(
                         Reply(
-                            id = 4L,
-                            member = "Admin",
-                            nickname = "",
-                            reply = "안녕하세요. 블루 아카이브 운영자입니다."
+                            id = 7L,
+                            member = "",
+                            nickname = "ㅇㅇ",
+                            reply = "대체 뭔 버그냐 이건ㅋㅋㅋ"
                         ),
                         Reply(
-                            id = 5L,
-                            member = "Admin",
+                            id = 8L,
+                            member = "철새",
                             nickname = "",
-                            reply = "안녕하세요. 블루 아카이브 운영자입니다."
+                            reply = "망겜 수준"
+                        ),
+                        Reply(
+                            id = 9L,
+                            member = "황새",
+                            nickname = "",
+                            reply = "뭐야 평소의 블아잖아"
                         )
                     ),
-                    replyCount = 2,
-                    title = "정상 영업중"
+                    replyCount = 3,
+                    title = "이겜 망했냐?",
+                    content = "제곧내"
                 )
             )
         }
@@ -205,7 +232,7 @@ class MockCommunityRepository : CommunityRepository {
     }
 
     private suspend fun randomShortDelay() {
-        delay(LongRange(100, 5000).random())
+        delay(LongRange(100, 500).random())
     }
 
     private suspend fun randomLongDelay() {

@@ -189,6 +189,11 @@
             android:name="postId"
             android:defaultValue="-1L"
             app:argType="long" />
+
+        <argument
+            android:name="title"
+            android:defaultValue='""'
+            app:argType="string" />
     </fragment>
 
     <dialog

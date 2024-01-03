@@ -9,14 +9,15 @@ class MockUserRepository : UserRepository {
         randomShortDelay()
         return Result.success(
             UserProfile(
+                id = 1L,
                 email = "asdf@gmail.com",
-                name = "asdf"
+                nickname = "asdf"
             )
         )
     }
 
     private suspend fun randomShortDelay() {
-        delay(LongRange(100, 5000).random())
+        delay(LongRange(100, 500).random())
     }
 
     private suspend fun randomLongDelay() {

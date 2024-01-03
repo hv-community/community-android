@@ -1,9 +1,9 @@
 package com.hv.community.android.presentation.ui.community.post.detail
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
 import com.hv.community.android.domain.model.community.PostDetail
 import com.hv.community.android.domain.model.error.ServerException
+import com.hv.community.android.domain.model.user.UserProfile
 import com.hv.community.android.domain.usecase.community.CheckPostPasswordUseCase
 import com.hv.community.android.domain.usecase.community.CheckReplyPasswordUseCase
 import com.hv.community.android.domain.usecase.community.CreateReplyUseCase
@@ -11,18 +11,20 @@ import com.hv.community.android.domain.usecase.community.DeletePostUseCase
 import com.hv.community.android.domain.usecase.community.DeleteReplyUseCase
 import com.hv.community.android.domain.usecase.community.GetPostDetailUseCase
 import com.hv.community.android.domain.usecase.community.UpdateReplyUseCase
+import com.hv.community.android.domain.usecase.user.GetMyProfileUseCase
 import com.hv.community.android.domain.usecase.user.UserIsLoginedUseCase
 import com.hv.community.android.presentation.common.base.BaseViewModel
 import com.hv.community.android.presentation.common.util.coroutine.event.EventFlow
 import com.hv.community.android.presentation.common.util.coroutine.event.MutableEventFlow
 import com.hv.community.android.presentation.common.util.coroutine.event.asEventFlow
+import com.hv.community.android.presentation.model.community.post.detail.PostDetailFooterModel
+import com.hv.community.android.presentation.model.community.post.detail.PostDetailHeaderModel
+import com.hv.community.android.presentation.model.community.post.detail.ReplyModel
+import com.hv.community.android.presentation.model.community.post.detail.toUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,7 +37,8 @@ class PostDetailViewModel @Inject constructor(
     val checkReplyPasswordUseCase: CheckReplyPasswordUseCase,
     private val updateReplyUseCase: UpdateReplyUseCase,
     private val deleteReplyUseCase: DeleteReplyUseCase,
-    private val userIsLoginedUseCase: UserIsLoginedUseCase
+    private val userIsLoginedUseCase: UserIsLoginedUseCase,
+    private val getMyProfileUseCase: GetMyProfileUseCase
 ) : BaseViewModel() {
 
     private val _state: MutableStateFlow<PostDetailState> = MutableStateFlow(PostDetailState.Init)
@@ -52,16 +55,37 @@ class PostDetailViewModel @Inject constructor(
         userIsLoginedUseCase()
     }
 
-    private val _postDetail: MutableStateFlow<PostDetail> = MutableStateFlow(PostDetail())
-    val postDetail: StateFlow<PostDetail> = _postDetail.asStateFlow()
+    private var refreshCount: Long = 0L
 
-    val nickname: StateFlow<String> = postDetail.map { postDetail ->
-        "작성자 : ${postDetail.member.ifEmpty { postDetail.nickname }}"
-    }.stateIn(viewModelScope, SharingStarted.Eagerly, "")
+    private val _headerModel: MutableStateFlow<PostDetailHeaderModel> = MutableStateFlow(PostDetailHeaderModel())
+    val headerModel: StateFlow<PostDetailHeaderModel> = _headerModel.asStateFlow()
+
+    private val _commentList: MutableStateFlow<List<ReplyModel>> = MutableStateFlow(emptyList())
+    val commentList: StateFlow<List<ReplyModel>> = _commentList.asStateFlow()
+
+    private val _footerModel: MutableStateFlow<PostDetailFooterModel> = MutableStateFlow(PostDetailFooterModel())
+    val footerModel: StateFlow<PostDetailFooterModel> = _footerModel.asStateFlow()
+
+    var postDetail: PostDetail = PostDetail()
+        private set
+
+    var profile: UserProfile = UserProfile()
+        private set
 
     init {
         launch {
-            refresh()
+            initialize()
+        }
+
+        launch {
+            state.collect { state ->
+                _headerModel.value = headerModel.value.copy(
+                    isInit = state == PostDetailState.Init
+                )
+                _footerModel.value = footerModel.value.copy(
+                    isInit = state == PostDetailState.Init
+                )
+            }
         }
     }
 
@@ -193,14 +217,85 @@ class PostDetailViewModel @Inject constructor(
         }
     }
 
-    private suspend fun refresh() {
+    fun onCommentPasswordChanged(
+        id: Long,
+        password: String
+    ) {
+        _commentList.value = ArrayList(commentList.value).apply {
+            val index = indexOfFirst { it.id == id }.takeIf { it != -1 } ?: return@apply
+            set(index, get(index).copy(password = password))
+        }
+    }
+
+    fun onCommentContentChanged(
+        id: Long,
+        fixedContent: String
+    ) {
+        _commentList.value = ArrayList(commentList.value).apply {
+            val index = indexOfFirst { it.id == id }.takeIf { it != -1 } ?: return@apply
+            set(index, get(index).copy(fixedContent = fixedContent))
+        }
+    }
+
+    fun onCommentExpand(
+        id: Long,
+        isExpanded: Boolean
+    ) {
+        _commentList.value = ArrayList(commentList.value).apply {
+            val index = indexOfFirst { it.id == id }.takeIf { it != -1 } ?: return@apply
+            set(index, get(index).copy(isExpanded = isExpanded))
+        }
+    }
+
+    fun onCommentEditing(
+        id: Long,
+        isEditing: Boolean
+    ) {
+        _commentList.value = ArrayList(commentList.value).apply {
+            val index = indexOfFirst { it.id == id }.takeIf { it != -1 } ?: return@apply
+            set(index, get(index).copy(isEditing = isEditing))
+        }
+    }
+
+    fun onCommentDeleting(
+        id: Long,
+        isDeleting: Boolean
+    ) {
+        _commentList.value = ArrayList(commentList.value).apply {
+            val index = indexOfFirst { it.id == id }.takeIf { it != -1 } ?: return@apply
+            set(index, get(index).copy(isDeleting = isDeleting))
+        }
+    }
+
+    fun onNewCommentNicknameChanged(nickname: String) {
+        _footerModel.value = footerModel.value.copy(
+            nickname = nickname
+        )
+    }
+
+    fun onNewCommentPasswordChanged(password: String) {
+        _footerModel.value = footerModel.value.copy(
+            password = password
+        )
+    }
+
+    fun onNewCommentContentChanged(content: String) {
+        _footerModel.value = footerModel.value.copy(
+            content = content
+        )
+    }
+
+    private suspend fun initialize() {
         _state.value = PostDetailState.Loading
 
-        getPostDetailUseCase(
-            arguments.postId
-        ).onSuccess { post ->
-            _postDetail.value = post
+        getMyProfileUseCase().onSuccess { profile ->
+            _state.value = PostDetailState.Init
+
+            this.profile = profile
+            refresh()
         }.onFailure { exception ->
+            _state.value = PostDetailState.Init
+
             when (exception) {
                 is ServerException -> {
                     _event.emit(PostDetailViewEvent.LoadPost.Fail(exception))
@@ -211,7 +306,49 @@ class PostDetailViewModel @Inject constructor(
                 }
             }
         }
+    }
 
-        _state.value = PostDetailState.Init
+    private suspend fun refresh() {
+        _state.value = PostDetailState.Loading
+
+        getPostDetailUseCase(
+            arguments.postId
+        ).onSuccess { post ->
+            _state.value = PostDetailState.Init
+
+            postDetail = post
+
+            refreshCount++
+            _headerModel.value = PostDetailHeaderModel(
+                id = refreshCount,
+                title = post.title,
+                nickname = post.nickname.ifEmpty { post.member },
+                isInit = state.value == PostDetailState.Init,
+                content = post.content
+            )
+            _commentList.value = post.replies.map { reply ->
+                reply.toUiModel(
+                    // TODO : 게시글 작성자 ID 비교
+                    isExpandEnabled = reply.member.isEmpty()
+                )
+            }
+            _footerModel.value = PostDetailFooterModel(
+                id = refreshCount,
+                member = profile.nickname,
+                isInit = state.value == PostDetailState.Init
+            )
+        }.onFailure { exception ->
+            _state.value = PostDetailState.Init
+
+            when (exception) {
+                is ServerException -> {
+                    _event.emit(PostDetailViewEvent.LoadPost.Fail(exception))
+                }
+
+                else -> {
+                    _event.emit(PostDetailViewEvent.LoadPost.Error(exception))
+                }
+            }
+        }
     }
 }

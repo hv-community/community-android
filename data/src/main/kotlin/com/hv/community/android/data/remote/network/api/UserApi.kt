@@ -2,9 +2,9 @@ package com.hv.community.android.data.remote.network.api
 
 import com.hv.community.android.data.remote.network.model.user.GetProfileRes
 import retrofit2.Response
-import retrofit2.http.POST
+import retrofit2.http.GET
 
 interface UserApi {
-    @POST("/member/get-my-profile")
+    @GET("/member/get-my-profile")
     suspend fun getProfile(): Response<GetProfileRes>
 }

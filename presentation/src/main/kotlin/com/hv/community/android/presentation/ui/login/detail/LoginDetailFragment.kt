@@ -5,6 +5,7 @@ import androidx.navigation.fragment.findNavController
 import com.hv.community.android.presentation.R
 import com.hv.community.android.presentation.common.base.BaseFragment
 import com.hv.community.android.presentation.common.util.coroutine.event.eventObserve
+import com.hv.community.android.presentation.common.util.showKeyboard
 import com.hv.community.android.presentation.databinding.FragmentLoginDetailBinding
 import com.ray.rds.window.alert.AlertDialogFragmentProvider
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,11 +48,11 @@ class LoginDetailFragment :
         fun validation(event: LoginDetailViewEvent.Validation) {
             when (event) {
                 LoginDetailViewEvent.Validation.InvalidEmail -> {
-                    binding.inputEmail.requestFocus()
+                    binding.inputEmail.showKeyboard()
                 }
 
                 LoginDetailViewEvent.Validation.InvalidPassword -> {
-                    binding.inputPassword.requestFocus()
+                    binding.inputPassword.showKeyboard()
                 }
             }
         }

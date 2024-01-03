@@ -25,7 +25,7 @@ class PostWriteFragment : BaseFragment<FragmentPostWriteBinding>(FragmentPostWri
             when (event) {
                 is PostWriteViewEvent.WritePost.Success -> {
                     // TODO : Go to post detail
-//                    findNavController().navigate(event.id)
+//                    findNavController().navigate(event.id, viewModel.arguments.title)
                 }
 
                 is PostWriteViewEvent.WritePost.Fail -> {

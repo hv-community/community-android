@@ -2,6 +2,7 @@ package com.hv.community.android.presentation.ui.community.post.detail
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ConcatAdapter
 import com.hv.community.android.presentation.common.base.BaseFragment
 import com.hv.community.android.presentation.common.util.coroutine.event.EventFlowSlot
 import com.hv.community.android.presentation.common.util.coroutine.event.eventObserve
@@ -15,10 +16,78 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>(FragmentPostD
 
     override val viewModel: PostDetailViewModel by viewModels()
 
+    private val headerAdapter: PostDetailHeaderListAdapter by lazy {
+        PostDetailHeaderListAdapter()
+    }
+
+    private val commentAdapter: CommentListAdapter by lazy {
+        CommentListAdapter(
+            onPasswordChanged = { id, password ->
+                viewModel.onCommentPasswordChanged(id, password)
+            },
+            onContentChanged = { id, fixedContent ->
+                viewModel.onCommentContentChanged(id, fixedContent)
+            },
+            onExpand = { id, isExpanded ->
+                viewModel.onCommentExpand(id, isExpanded)
+            },
+            onEditing = { id, isEditing ->
+                viewModel.onCommentEditing(id, isEditing)
+            },
+            onDeleting = { id, isDeleting ->
+                viewModel.onCommentDeleting(id, isDeleting)
+            },
+            onEditClick = { comment ->
+                // TODO : 비밀번호 확인
+                viewModel.editComment(
+                    password = comment.password,
+                    reply = comment.fixedContent,
+                    replyId = comment.id
+                )
+            },
+            onDeleteClick = { comment ->
+                // TODO : 비밀번호 확인
+                viewModel.deleteComment(
+                    password = comment.password,
+                    replyId = comment.id
+                )
+            }
+        )
+    }
+
+    private val footerAdapter: PostDetailFooterListAdapter by lazy {
+        PostDetailFooterListAdapter(
+            onNicknameChanged = { nickname ->
+                viewModel.onNewCommentNicknameChanged(nickname)
+            },
+            onPasswordChanged = { password ->
+                viewModel.onNewCommentPasswordChanged(password)
+            },
+            onContentChanged = { content ->
+                viewModel.onNewCommentContentChanged(content)
+            },
+            onWrite = {
+                val model = viewModel.footerModel.value
+                viewModel.writeComment(
+                    nickname = model.nickname,
+                    password = model.password,
+                    postId = viewModel.arguments.postId,
+                    reply = model.content
+                )
+            },
+        )
+    }
+
     override fun initView() {
         bind {
             vm = viewModel
             lifecycleOwner = this@PostDetailFragment
+
+            comment.adapter = ConcatAdapter(
+                headerAdapter,
+                commentAdapter,
+                footerAdapter
+            )
         }
     }
 
@@ -183,7 +252,7 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>(FragmentPostD
                             }
 
                             PostDetailMoreResult.Delete -> {
-                                if (viewModel.postDetail.value.nickname.isNotEmpty()) {
+                                if (viewModel.postDetail.nickname.isNotEmpty()) {
                                     // TODO : 유동 비밀번호 필요
                                 } else {
                                     viewModel.deletePost(
@@ -210,6 +279,24 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>(FragmentPostD
                         }
                     }
                 }
+        }
+
+        repeatOnStarted {
+            viewModel.headerModel.collect { headerModel ->
+                headerAdapter.submitList(listOf(headerModel))
+            }
+        }
+
+        repeatOnStarted {
+            viewModel.commentList.collect { commentList ->
+                commentAdapter.submitList(commentList)
+            }
+        }
+
+        repeatOnStarted {
+            viewModel.footerModel.collect { footerModel ->
+                footerAdapter.submitList(listOf(footerModel))
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ class MockAuthenticationRepository(
     override var refreshToken: String
         set(value) = sharedPreferencesManager.setString(REFRESH_TOKEN, value)
         get() = sharedPreferencesManager.getString(REFRESH_TOKEN, "")
+
     override var accessToken: String
         set(value) = sharedPreferencesManager.setString(ACCESS_TOKEN, value)
         get() = sharedPreferencesManager.getString(ACCESS_TOKEN, "")
@@ -27,7 +28,7 @@ class MockAuthenticationRepository(
     }
 
     private suspend fun randomShortDelay() {
-        delay(LongRange(100, 5000).random())
+        delay(LongRange(100, 500).random())
     }
 
     private suspend fun randomLongDelay() {

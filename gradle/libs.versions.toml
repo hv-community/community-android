@@ -20,6 +20,7 @@ androidx-core = "1.12.0"
 androidx-navigation = "2.7.6"
 androidx-appcompat = "1.6.1"
 androidx-constraintlayout = "2.1.4"
+androidx-recyclerview = "1.2.1"
 androidx-fragment = "1.6.2"
 androidx-lifecycle = "2.6.2"
 androidx-room = "2.6.1"
@@ -58,6 +59,7 @@ androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragme
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx-navigation" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
+androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "androidx-recyclerview" }
 androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx-fragment" }
 androidx-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
 androidx-livedata = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "androidx-lifecycle" }
@@ -103,8 +105,8 @@ sentry = { id = "io.sentry.android.gradle", version.ref = "plugin-sentry" }
 
 [bundles]
 kotlin = ["kotlin", "kotlinx-coroutines-android", "kotlinx-coroutines-core"]
-androidx-presentation = ["androidx-core", "androidx-appcompat", "androidx-constraintlayout", "androidx-fragment",
-    "androidx-viewmodel", "androidx-livedata", "androidx-navigation-fragment", "androidx-navigation-ui"]
+androidx-presentation = ["androidx-core", "androidx-appcompat", "androidx-constraintlayout", "androidx-recyclerview",
+    "androidx-fragment", "androidx-viewmodel", "androidx-livedata", "androidx-navigation-fragment", "androidx-navigation-ui"]
 androidx-data = ["androidx-room-runtime", "androidx-room-coroutine"]
 network = ["retrofit", "retrofit-coroutines-adapter", "retrofit-scalars-converter", "kotlinx-serialization", "kotlinx-serialization-converter"]
 flipper = ["flipper", "flipper-network", "flipper-leakcanary", "flipper-soloader"]

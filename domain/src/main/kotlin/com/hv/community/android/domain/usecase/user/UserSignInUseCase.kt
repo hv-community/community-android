@@ -2,10 +2,14 @@ package com.hv.community.android.domain.usecase.user
 
 import com.hv.community.android.domain.repository.AuthenticationRepository
 import com.hv.community.android.domain.repository.SignUpRepository
+import com.hv.community.android.domain.repository.UserRepository
+import io.sentry.Sentry
+import io.sentry.protocol.User
 import javax.inject.Inject
 
 class UserSignInUseCase @Inject constructor(
     private val signUpRepository: SignUpRepository,
+    private val userRepository: UserRepository,
     private val authenticationRepository: AuthenticationRepository
 ) {
     suspend operator fun invoke(
@@ -15,11 +19,20 @@ class UserSignInUseCase @Inject constructor(
         return signUpRepository.signIn(
             email,
             password
-        ).onSuccess {
+        ).onSuccess { token ->
             signUpRepository.email = email
             signUpRepository.password = password
-            authenticationRepository.accessToken = it.accessToken
-            authenticationRepository.refreshToken = it.refreshToken
+            authenticationRepository.accessToken = token.accessToken
+            authenticationRepository.refreshToken = token.refreshToken
+            // TODO : 분리하기
+            userRepository.getProfile().onSuccess { profile ->
+                Sentry.setUser(
+                    User().apply {
+                        this.email = profile.email
+                        this.username = profile.name
+                    }
+                )
+            }.getOrThrow()
         }.map { }
     }
 }

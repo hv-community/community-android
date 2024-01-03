@@ -28,4 +28,5 @@ dependencies {
     implementation(libs.glide)
 
     implementation(libs.timber)
+    implementation(libs.sentry)
 }

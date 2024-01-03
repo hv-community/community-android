@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.timber)
     implementation(libs.leakcanary)
     debugImplementation(libs.bundles.flipper)
+    implementation(libs.sentry)
 }
 
 fun getLocalProperty(propertyKey: String): String {

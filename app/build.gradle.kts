@@ -75,6 +75,7 @@ dependencies {
 
     implementation(libs.timber)
     implementation(libs.leakcanary)
+    implementation(libs.sentry)
     debugImplementation(libs.bundles.flipper)
 }
 

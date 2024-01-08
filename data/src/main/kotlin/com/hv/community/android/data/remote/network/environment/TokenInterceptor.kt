@@ -9,10 +9,16 @@ class TokenInterceptor(
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        return chain.proceed(
-            chain.request().newBuilder()
-                .addHeader("Authorization", "Bearer ${authenticationRepository.accessToken}")
-                .build()
-        )
+        val accessToken = authenticationRepository.accessToken
+
+        return if (accessToken.isEmpty()) {
+            chain.proceed(chain.request())
+        } else {
+            chain.proceed(
+                chain.request().newBuilder()
+                    .addHeader("Authorization", "Bearer $accessToken")
+                    .build()
+            )
+        }
     }
 }

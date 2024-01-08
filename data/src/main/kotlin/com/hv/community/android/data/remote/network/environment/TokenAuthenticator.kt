@@ -7,28 +7,47 @@ import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
 import timber.log.Timber
-import java.net.HttpURLConnection
 
 class TokenAuthenticator(
     private val authenticationRepository: AuthenticationRepository
 ) : Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {
-        synchronized(this) {
-            if (response.code != HttpURLConnection.HTTP_UNAUTHORIZED) return null
+        var goToLoginScreen: Boolean = false
 
-            return runBlocking {
-                authenticationRepository.getAccessToken(
-                    authenticationRepository.refreshToken
-                ).map { accessToken ->
-                    authenticationRepository.accessToken = accessToken
-                    response.request.newBuilder().apply {
-                        removeHeader("Authorization")
-                        addHeader("Authorization", "Bearer $accessToken")
-                    }.build()
-                }.onFailure {
-                    Timber.e(it)
-                }.getOrNull()
+        val request = synchronized(this) {
+            return@synchronized runBlocking {
+                val refreshToken = authenticationRepository.refreshToken.ifEmpty { null }
+                val accessToken = refreshToken?.let { refreshToken ->
+                    authenticationRepository.getAccessToken(
+                        refreshToken
+                    ).map { accessToken ->
+                        authenticationRepository.accessToken = accessToken
+                        response.request.newBuilder().apply {
+                            removeHeader("Authorization")
+                            addHeader("Authorization", "Bearer $accessToken")
+                        }.build()
+                    }.onFailure {
+                        Timber.e(it)
+                    }.getOrNull()
+                }
+
+                if (
+                    accessToken == null &&
+                    refreshToken != null
+                ) {
+                    authenticationRepository.accessToken = ""
+                    authenticationRepository.refreshToken = ""
+                    goToLoginScreen = true
+                }
+
+                return@runBlocking accessToken
             }
         }
+
+        if (goToLoginScreen) {
+            // TODO: Go to login screen
+        }
+
+        return request
     }
 }

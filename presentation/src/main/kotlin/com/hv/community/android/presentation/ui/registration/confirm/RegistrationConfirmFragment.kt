@@ -31,7 +31,9 @@ class RegistrationConfirmFragment :
                         title = "회원가입 성공",
                         message = "회원가입을 완료했습니다.\n로그인해주세요.",
                         onDismiss = {
-                            findNavController().navigate(R.id.action_registration_confirm_to_login_detail)
+                            findNavController().navigate(
+                                RegistrationConfirmFragmentDirections.actionRegistrationConfirmToLoginDetail()
+                            )
                         }
                     ).show()
                 }

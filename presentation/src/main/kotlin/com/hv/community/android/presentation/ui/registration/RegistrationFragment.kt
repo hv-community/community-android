@@ -28,7 +28,7 @@ class RegistrationFragment :
             when (event) {
                 RegistrationViewEvent.Registration.Success -> {
                     findNavController().navigate(
-                        R.id.action_registration_to_registration_confirm
+                        RegistrationFragmentDirections.actionRegistrationToRegistrationConfirm()
                     )
                 }
 

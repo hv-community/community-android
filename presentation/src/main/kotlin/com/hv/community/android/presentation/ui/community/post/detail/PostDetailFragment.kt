@@ -248,6 +248,13 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>(FragmentPostD
                     event.getContentIfNotHandled<PostDetailMoreResult>()?.let { action ->
                         when (action) {
                             PostDetailMoreResult.Edit -> {
+                                findNavController().navigate(
+                                    PostDetailFragmentDirections.actionPostDetailToPostWrite(
+                                        communityId = viewModel.arguments.communityId,
+                                        postId = viewModel.arguments.postId,
+                                        title = viewModel.arguments.title,
+                                    )
+                                )
                                 // TODO : Edit Post
                             }
 

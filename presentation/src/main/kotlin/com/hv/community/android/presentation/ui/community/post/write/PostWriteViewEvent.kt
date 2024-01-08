@@ -7,5 +7,10 @@ sealed interface PostWriteViewEvent {
         data class Error(val exception: Throwable) : WritePost
     }
 
+    sealed interface LoadPost : PostWriteViewEvent {
+        data class Fail(val exception: Throwable) : LoadPost
+        data class Error(val exception: Throwable) : LoadPost
+    }
+
     data object GoBack : PostWriteViewEvent
 }

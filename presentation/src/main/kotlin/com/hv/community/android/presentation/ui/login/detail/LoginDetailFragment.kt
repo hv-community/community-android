@@ -2,7 +2,6 @@ package com.hv.community.android.presentation.ui.login.detail
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.hv.community.android.presentation.R
 import com.hv.community.android.presentation.common.base.BaseFragment
 import com.hv.community.android.presentation.common.util.coroutine.event.eventObserve
 import com.hv.community.android.presentation.common.util.showKeyboard
@@ -27,7 +26,9 @@ class LoginDetailFragment :
         fun login(event: LoginDetailViewEvent.Login) {
             when (event) {
                 LoginDetailViewEvent.Login.Success -> {
-                    findNavController().navigate(R.id.action_login_detail_to_community)
+                    findNavController().navigate(
+                        LoginDetailFragmentDirections.actionLoginDetailToCommunity()
+                    )
                 }
 
                 is LoginDetailViewEvent.Login.Fail -> {
@@ -70,13 +71,13 @@ class LoginDetailFragment :
 
                     LoginDetailViewEvent.GoRegistration -> {
                         findNavController().navigate(
-                            R.id.action_login_detail_to_registration
+                            LoginDetailFragmentDirections.actionLoginDetailToRegistration()
                         )
                     }
 
                     LoginDetailViewEvent.GoRegistrationConfirm -> {
                         findNavController().navigate(
-                            R.id.action_login_detail_to_registration_confirm
+                            LoginDetailFragmentDirections.actionLoginDetailToRegistrationConfirm()
                         )
                     }
 

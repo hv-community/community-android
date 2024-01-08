@@ -21,11 +21,39 @@ class PostWriteFragment : BaseFragment<FragmentPostWriteBinding>(FragmentPostWri
     }
 
     override fun initObserver() {
-        fun loadPost(event: PostWriteViewEvent.WritePost) {
+        fun loadPost(event: PostWriteViewEvent.LoadPost) {
+            when (event) {
+                is PostWriteViewEvent.LoadPost.Fail -> {
+                    AlertDialogFragmentProvider.makeAlertDialog(
+                        title = "커뮤니티 에러",
+                        message = event.exception.message,
+                        onDismiss = {
+                            findNavController().navigateUp()
+                        }
+                    ).show()
+                }
+
+                is PostWriteViewEvent.LoadPost.Error -> {
+                    AlertDialogFragmentProvider.makeAlertDialog(
+                        title = "앗, 에러가 발생했어요!",
+                        onDismiss = {
+                            findNavController().navigateUp()
+                        }
+                    ).show()
+                }
+            }
+        }
+
+        fun writePost(event: PostWriteViewEvent.WritePost) {
             when (event) {
                 is PostWriteViewEvent.WritePost.Success -> {
-                    // TODO : Go to post detail
-//                    findNavController().navigate(event.id, viewModel.arguments.title)
+                    findNavController().navigate(
+                        PostWriteFragmentDirections.actionPostWriteToPostDetail(
+                            communityId = viewModel.arguments.communityId,
+                            postId = event.id,
+                            title = viewModel.arguments.title
+                        )
+                    )
                 }
 
                 is PostWriteViewEvent.WritePost.Fail -> {
@@ -42,11 +70,16 @@ class PostWriteFragment : BaseFragment<FragmentPostWriteBinding>(FragmentPostWri
                 }
             }
         }
+
         repeatOnStarted {
             viewModel.event.eventObserve { event ->
                 when (event) {
-                    is PostWriteViewEvent.WritePost -> {
+                    is PostWriteViewEvent.LoadPost -> {
                         loadPost(event)
+                    }
+
+                    is PostWriteViewEvent.WritePost -> {
+                        writePost(event)
                     }
 
                     PostWriteViewEvent.GoBack -> {

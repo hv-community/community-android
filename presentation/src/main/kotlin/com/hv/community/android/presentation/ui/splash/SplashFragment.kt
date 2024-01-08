@@ -2,7 +2,6 @@ package com.hv.community.android.presentation.ui.splash
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.hv.community.android.presentation.R
 import com.hv.community.android.presentation.common.base.BaseFragment
 import com.hv.community.android.presentation.common.util.coroutine.event.eventObserve
 import com.hv.community.android.presentation.databinding.FragmentSplashBinding
@@ -25,7 +24,9 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
         fun login(event: SplashViewEvent.Login) {
             when (event) {
                 SplashViewEvent.Login.Success -> {
-                    findNavController().navigate(R.id.action_splash_to_community)
+                    findNavController().navigate(
+                        SplashFragmentDirections.actionSplashToCommunity()
+                    )
                 }
 
                 is SplashViewEvent.Login.Fail -> {
@@ -33,7 +34,9 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
                         title = "로그인 에러",
                         message = event.exception.message,
                         onDismiss = {
-                            findNavController().navigate(R.id.action_splash_to_community)
+                            findNavController().navigate(
+                                SplashFragmentDirections.actionSplashToCommunity()
+                            )
                         }
                     ).show()
                 }
@@ -42,7 +45,9 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
                     AlertDialogFragmentProvider.makeAlertDialog(
                         title = "앗, 에러가 발생했어요!",
                         onDismiss = {
-                            findNavController().navigate(R.id.action_splash_to_community)
+                            findNavController().navigate(
+                                SplashFragmentDirections.actionSplashToCommunity()
+                            )
                         }
                     ).show()
                 }
@@ -57,7 +62,9 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
                     }
 
                     SplashViewEvent.GoLogin -> {
-                        findNavController().navigate(R.id.action_splash_to_login)
+                        findNavController().navigate(
+                            SplashFragmentDirections.actionSplashToLogin()
+                        )
                     }
                 }
             }

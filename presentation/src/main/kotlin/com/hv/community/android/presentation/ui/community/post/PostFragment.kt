@@ -22,6 +22,7 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
                 onClick = { item ->
                     findNavController().navigate(
                         PostFragmentDirections.actionPostToPostDetail(
+                            communityId = viewModel.arguments.communityId,
                             postId = item.id,
                             title = viewModel.arguments.title
                         )

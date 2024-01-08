@@ -3,6 +3,7 @@ package com.hv.community.android.presentation.ui.community.post.write
 import androidx.lifecycle.SavedStateHandle
 import com.hv.community.android.domain.model.error.ServerException
 import com.hv.community.android.domain.usecase.community.CreatePostUseCase
+import com.hv.community.android.domain.usecase.community.GetPostDetailUseCase
 import com.hv.community.android.domain.usecase.user.UserIsLoginedUseCase
 import com.hv.community.android.presentation.common.base.BaseViewModel
 import com.hv.community.android.presentation.common.util.coroutine.event.EventFlow
@@ -18,7 +19,8 @@ import javax.inject.Inject
 class PostWriteViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val createPostUseCase: CreatePostUseCase,
-    private val userIsLoginedUseCase: UserIsLoginedUseCase
+    private val userIsLoginedUseCase: UserIsLoginedUseCase,
+    private val getPostDetailUseCase: GetPostDetailUseCase,
 ) : BaseViewModel() {
 
     private val _state: MutableStateFlow<PostWriteState> = MutableStateFlow(PostWriteState.Init)
@@ -42,6 +44,36 @@ class PostWriteViewModel @Inject constructor(
     val nickname: MutableStateFlow<String> = MutableStateFlow("")
 
     val password: MutableStateFlow<String> = MutableStateFlow("")
+
+    init {
+        if (arguments.postId != -1L) {
+            launch {
+                _state.value = PostWriteState.Loading
+
+                getPostDetailUseCase(
+                    arguments.postId
+                ).onSuccess { post ->
+                    _state.value = PostWriteState.Init
+
+                    title.value = post.title
+                    content.value = post.content
+                    nickname.value = post.nickname
+                }.onFailure { exception ->
+                    _state.value = PostWriteState.Init
+
+                    when (exception) {
+                        is ServerException -> {
+                            _event.emit(PostWriteViewEvent.LoadPost.Fail(exception))
+                        }
+
+                        else -> {
+                            _event.emit(PostWriteViewEvent.LoadPost.Error(exception))
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     fun onWrite() {
         launch {

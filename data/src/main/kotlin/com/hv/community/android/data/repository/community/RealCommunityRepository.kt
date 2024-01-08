@@ -1,5 +1,6 @@
 package com.hv.community.android.data.repository.community
 
+import com.hv.community.android.data.remote.local.ErrorMessageMapper
 import com.hv.community.android.data.remote.network.api.CommunityApi
 import com.hv.community.android.data.remote.network.model.community.CheckPostPasswordReq
 import com.hv.community.android.data.remote.network.model.community.CheckReplyPasswordReq
@@ -17,11 +18,12 @@ import com.hv.community.android.domain.model.community.PostDetail
 import com.hv.community.android.domain.repository.CommunityRepository
 
 class RealCommunityRepository(
-    private val communityApi: CommunityApi
+    private val communityApi: CommunityApi,
+    private val errorMessageMapper: ErrorMessageMapper
 ) : CommunityRepository {
     override suspend fun getCommunityList(): Result<List<Community>> {
         return communityApi.getCommunityList()
-            .convertResponse()
+            .convertResponse(errorMessageMapper::map)
             .map {
                 it.communities.map { community ->
                     community.toDomain()
@@ -33,7 +35,7 @@ class RealCommunityRepository(
         communityId: Long
     ): Result<List<Post>> {
         return communityApi.getPostList(communityId)
-            .convertResponse()
+            .convertResponse(errorMessageMapper::map)
             .map {
                 it.posts.map { post ->
                     post.toDomain()
@@ -45,7 +47,7 @@ class RealCommunityRepository(
         postId: Long
     ): Result<PostDetail> {
         return communityApi.getPostDetail(postId)
-            .convertResponseToDomain()
+            .convertResponseToDomain(errorMessageMapper::map)
     }
 
     override suspend fun createPost(
@@ -63,7 +65,7 @@ class RealCommunityRepository(
                 nickname = nickname,
                 password = password
             )
-        ).convertResponse().map { it.postId }
+        ).convertResponse(errorMessageMapper::map).map { it.postId }
     }
 
     override suspend fun checkPostPassword(
@@ -75,7 +77,7 @@ class RealCommunityRepository(
                 password = password,
                 postId = postId
             )
-        ).convertResponse()
+        ).convertResponse(errorMessageMapper::map)
     }
 
     override suspend fun updatePost(
@@ -91,7 +93,7 @@ class RealCommunityRepository(
                 postId = postId,
                 title = title
             )
-        ).convertResponse()
+        ).convertResponse(errorMessageMapper::map)
     }
 
     override suspend fun deletePost(
@@ -103,7 +105,7 @@ class RealCommunityRepository(
                 password = password,
                 postId = postId
             )
-        ).convertResponse()
+        ).convertResponse(errorMessageMapper::map)
     }
 
     override suspend fun createReply(
@@ -119,7 +121,7 @@ class RealCommunityRepository(
                 postId = postId,
                 reply = reply
             )
-        ).convertResponse().map { it.replyId }
+        ).convertResponse(errorMessageMapper::map).map { it.replyId }
     }
 
     override suspend fun checkReplyPassword(
@@ -131,7 +133,7 @@ class RealCommunityRepository(
                 password = password,
                 replyId = replyId
             )
-        ).convertResponse()
+        ).convertResponse(errorMessageMapper::map)
     }
 
     override suspend fun updateReply(
@@ -145,7 +147,7 @@ class RealCommunityRepository(
                 reply = reply,
                 replyId = replyId
             )
-        ).convertResponse()
+        ).convertResponse(errorMessageMapper::map)
     }
 
     override suspend fun deleteReply(
@@ -157,6 +159,6 @@ class RealCommunityRepository(
                 password = password,
                 replyId = replyId
             )
-        ).convertResponse()
+        ).convertResponse(errorMessageMapper::map)
     }
 }

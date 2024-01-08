@@ -1,5 +1,6 @@
 package com.hv.community.android.data.di
 
+import com.hv.community.android.data.remote.local.ErrorMessageMapper
 import com.hv.community.android.data.remote.local.SharedPreferencesManager
 import com.hv.community.android.data.remote.network.api.AuthenticationApi
 import com.hv.community.android.data.remote.network.api.CommunityApi
@@ -26,37 +27,41 @@ internal object RepositoryModule {
     @Singleton
     fun bindsSignUpRepository(
         signUpApi: SignUpApi,
-        sharedPreferencesManager: SharedPreferencesManager
+        sharedPreferencesManager: SharedPreferencesManager,
+        errorMessageMapper: ErrorMessageMapper
     ): SignUpRepository {
 //        return MockSignUpRepository(sharedPreferencesManager)
-        return RealSignUpRepository(signUpApi, sharedPreferencesManager)
+        return RealSignUpRepository(signUpApi, sharedPreferencesManager, errorMessageMapper)
     }
 
     @Provides
     @Singleton
     fun bindsUserRepository(
-        userApi: UserApi
+        userApi: UserApi,
+        errorMessageMapper: ErrorMessageMapper
     ): UserRepository {
 //        return MockUserRepository()
-        return RealUserRepository(userApi)
+        return RealUserRepository(userApi, errorMessageMapper)
     }
 
     @Provides
     @Singleton
     fun bindsAuthenticationRepository(
         authenticationApi: AuthenticationApi,
-        sharedPreferencesManager: SharedPreferencesManager
+        sharedPreferencesManager: SharedPreferencesManager,
+        errorMessageMapper: ErrorMessageMapper
     ): AuthenticationRepository {
 //        return MockAuthenticationRepository(sharedPreferencesManager)
-        return RealAuthenticationRepository(authenticationApi, sharedPreferencesManager)
+        return RealAuthenticationRepository(authenticationApi, sharedPreferencesManager, errorMessageMapper)
     }
 
     @Provides
     @Singleton
     fun bindsCommunityRepository(
-        communityApi: CommunityApi
+        communityApi: CommunityApi,
+        errorMessageMapper: ErrorMessageMapper
     ): CommunityRepository {
 //        return MockCommunityRepository()
-        return RealCommunityRepository(communityApi)
+        return RealCommunityRepository(communityApi, errorMessageMapper)
     }
 }

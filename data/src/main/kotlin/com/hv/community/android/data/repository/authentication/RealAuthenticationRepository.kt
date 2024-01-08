@@ -1,5 +1,6 @@
 package com.hv.community.android.data.repository.authentication
 
+import com.hv.community.android.data.remote.local.ErrorMessageMapper
 import com.hv.community.android.data.remote.local.SharedPreferencesManager
 import com.hv.community.android.data.remote.network.api.AuthenticationApi
 import com.hv.community.android.data.remote.network.model.authentication.GetAccessTokenReq
@@ -8,7 +9,8 @@ import com.hv.community.android.domain.repository.AuthenticationRepository
 
 class RealAuthenticationRepository(
     private val authenticationApi: AuthenticationApi,
-    private val sharedPreferencesManager: SharedPreferencesManager
+    private val sharedPreferencesManager: SharedPreferencesManager,
+    private val errorMessageMapper: ErrorMessageMapper
 ) : AuthenticationRepository {
 
     override var refreshToken: String
@@ -25,7 +27,7 @@ class RealAuthenticationRepository(
             GetAccessTokenReq(
                 refreshToken = refreshToken
             )
-        ).convertResponse().map {
+        ).convertResponse(errorMessageMapper::map).map {
             it.accessToken
         }
     }

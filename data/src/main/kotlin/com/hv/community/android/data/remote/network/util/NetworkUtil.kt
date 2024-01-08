@@ -8,35 +8,41 @@ import kotlinx.serialization.json.Json
 import retrofit2.Response
 import timber.log.Timber
 
-fun <T : DataMapper<R>, R : Any> Response<T>.convertResponseToDomain(): Result<R> {
+fun <T : DataMapper<R>, R : Any> Response<T>.convertResponseToDomain(
+    errorMessageMapper: (String) -> String
+): Result<R> {
     return runCatching {
         if (isSuccessful) {
             return@runCatching body()?.toDomain() ?: throw InvalidStandardResponseException("Response Empty Body")
         } else {
-            throw this.toThrowable()
+            throw this.toThrowable(errorMessageMapper)
         }
     }.onFailure {
         Timber.e(it)
     }
 }
 
-fun <T> Response<T>.convertResponse(): Result<T> {
+fun <T> Response<T>.convertResponse(
+    errorMessageMapper: (String) -> String
+): Result<T> {
     return runCatching {
         if (isSuccessful) {
             return@runCatching body() ?: throw InvalidStandardResponseException("Response Empty Body")
         } else {
-            throw this.toThrowable()
+            throw this.toThrowable(errorMessageMapper)
         }
     }.onFailure {
         Timber.e(it)
     }
 }
 
-private fun Response<*>.toThrowable(): Throwable {
+private fun Response<*>.toThrowable(
+    errorMessageMapper: (String) -> String
+): Throwable {
     return runCatching {
         errorBody()?.string()?.let {
             val errorRes = Json.decodeFromString<ErrorRes>(it)
-            ServerException(errorRes.id, errorRes.message)
+            ServerException(errorRes.id, errorMessageMapper(errorRes.id))
         } ?: InvalidStandardResponseException("Response Empty Body")
     }.getOrElse { exception ->
         exception

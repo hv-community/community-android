@@ -1,6 +1,7 @@
 package com.hv.community.android.data.di
 
 import android.content.Context
+import com.hv.community.android.data.remote.local.ErrorMessageMapper
 import com.hv.community.android.data.remote.local.SharedPreferencesManager
 import dagger.Module
 import dagger.Provides
@@ -20,5 +21,13 @@ internal object LocalModule {
         @ApplicationContext context: Context
     ): SharedPreferencesManager {
         return SharedPreferencesManager(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideErrorMessageMapper(
+        @ApplicationContext context: Context
+    ): ErrorMessageMapper {
+        return ErrorMessageMapper(context)
     }
 }

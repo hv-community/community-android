@@ -1,5 +1,6 @@
 package com.hv.community.android.data.repository.user
 
+import com.hv.community.android.data.remote.local.ErrorMessageMapper
 import com.hv.community.android.data.remote.local.SharedPreferencesManager
 import com.hv.community.android.data.remote.network.api.SignUpApi
 import com.hv.community.android.data.remote.network.model.user.UserSendEmailReq
@@ -14,7 +15,8 @@ import com.hv.community.android.domain.repository.SignUpRepository
 
 class RealSignUpRepository(
     private val signUpApi: SignUpApi,
-    private val sharedPreferencesManager: SharedPreferencesManager
+    private val sharedPreferencesManager: SharedPreferencesManager,
+    private val errorMessageMapper: ErrorMessageMapper
 ) : SignUpRepository {
 
     override var emailToken: String
@@ -41,7 +43,7 @@ class RealSignUpRepository(
                 nickname = nickname,
                 password = password
             )
-        ).convertResponseToDomain()
+        ).convertResponseToDomain(errorMessageMapper::map)
     }
 
     override suspend fun signIn(
@@ -53,7 +55,7 @@ class RealSignUpRepository(
                 email = email,
                 password = password
             )
-        ).convertResponseToDomain()
+        ).convertResponseToDomain(errorMessageMapper::map)
     }
 
     override suspend fun sendEmail(
@@ -63,7 +65,7 @@ class RealSignUpRepository(
             UserSendEmailReq(
                 token = token
             )
-        ).convertResponse()
+        ).convertResponse(errorMessageMapper::map)
     }
 
     override suspend fun verifyEmail(
@@ -75,7 +77,7 @@ class RealSignUpRepository(
                 token = token,
                 verificationCode = verificationCode
             )
-        ).convertResponse()
+        ).convertResponse(errorMessageMapper::map)
     }
 
     companion object {

@@ -12,7 +12,9 @@ import com.ray.rds.window.alert.AlertDialogFragmentProvider
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>(FragmentPostDetailBinding::inflate) {
+class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>(
+    FragmentPostDetailBinding::inflate
+) {
 
     override val viewModel: PostDetailViewModel by viewModels()
 

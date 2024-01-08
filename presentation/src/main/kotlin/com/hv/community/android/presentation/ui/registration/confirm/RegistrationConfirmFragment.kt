@@ -2,7 +2,6 @@ package com.hv.community.android.presentation.ui.registration.confirm
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.hv.community.android.presentation.R
 import com.hv.community.android.presentation.common.base.BaseFragment
 import com.hv.community.android.presentation.common.util.coroutine.event.eventObserve
 import com.hv.community.android.presentation.common.util.showKeyboard
@@ -12,7 +11,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RegistrationConfirmFragment :
-    BaseFragment<FragmentRegistrationConfirmBinding>(FragmentRegistrationConfirmBinding::inflate) {
+    BaseFragment<FragmentRegistrationConfirmBinding>(
+        FragmentRegistrationConfirmBinding::inflate
+    ) {
 
     override val viewModel: RegistrationConfirmViewModel by viewModels()
 

@@ -9,7 +9,9 @@ import com.ray.rds.window.alert.AlertDialogFragmentProvider
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CommunityFragment : BaseFragment<FragmentCommunityBinding>(FragmentCommunityBinding::inflate) {
+class CommunityFragment : BaseFragment<FragmentCommunityBinding>(
+    FragmentCommunityBinding::inflate
+) {
 
     override val viewModel: CommunityViewModel by viewModels()
 

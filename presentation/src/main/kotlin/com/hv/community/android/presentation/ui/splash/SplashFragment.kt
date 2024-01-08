@@ -9,7 +9,9 @@ import com.ray.rds.window.alert.AlertDialogFragmentProvider
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding::inflate) {
+class SplashFragment : BaseFragment<FragmentSplashBinding>(
+    FragmentSplashBinding::inflate
+) {
 
     override val viewModel: SplashViewModel by viewModels()
 

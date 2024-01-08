@@ -17,17 +17,17 @@ class TokenAuthenticator(
         val request = synchronized(this) {
             return@synchronized runBlocking {
                 val refreshToken = authenticationRepository.refreshToken.ifEmpty { null }
-                val accessToken = refreshToken?.let { refreshToken ->
+                val accessToken = refreshToken?.let {
                     authenticationRepository.getAccessToken(
-                        refreshToken
+                        it
                     ).map { accessToken ->
                         authenticationRepository.accessToken = accessToken
                         response.request.newBuilder().apply {
                             removeHeader("Authorization")
                             addHeader("Authorization", "Bearer $accessToken")
                         }.build()
-                    }.onFailure {
-                        Timber.e(it)
+                    }.onFailure { exception ->
+                        Timber.e(exception)
                     }.getOrNull()
                 }
 
@@ -45,7 +45,7 @@ class TokenAuthenticator(
         }
 
         if (goToLoginScreen) {
-            // TODO: Go to login screen
+            // TODO: InvalidTokenActivity, Repository observe from Application?
         }
 
         return request

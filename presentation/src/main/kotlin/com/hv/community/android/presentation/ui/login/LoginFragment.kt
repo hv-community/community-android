@@ -10,7 +10,9 @@ import com.hv.community.android.presentation.model.login.LoginMethod
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
+class LoginFragment : BaseFragment<FragmentLoginBinding>(
+    FragmentLoginBinding::inflate
+) {
 
     override val viewModel: LoginViewModel by viewModels()
 

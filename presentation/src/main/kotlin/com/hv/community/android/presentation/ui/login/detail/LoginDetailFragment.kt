@@ -11,7 +11,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginDetailFragment :
-    BaseFragment<FragmentLoginDetailBinding>(FragmentLoginDetailBinding::inflate) {
+    BaseFragment<FragmentLoginDetailBinding>(
+        FragmentLoginDetailBinding::inflate
+    ) {
 
     override val viewModel: LoginDetailViewModel by viewModels()
 

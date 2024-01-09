@@ -6,8 +6,8 @@ import kotlinx.android.parcel.Parcelize
 // TODO : sealed 로 분리
 @Parcelize
 data class PostDetailFooterModel(
-    val id: Long = 0L,
-    val member: String = "",
+    val id: Long = -1L,
+    val isLogined: Boolean = false,
     val isInit: Boolean = true,
     val nickname: String = "",
     val password: String = "",

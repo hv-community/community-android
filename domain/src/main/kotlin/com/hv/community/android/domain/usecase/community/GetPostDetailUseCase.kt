@@ -8,9 +8,11 @@ class GetPostDetailUseCase @Inject constructor(
     private val communityRepository: CommunityRepository
 ) {
     suspend operator fun invoke(
+        communityId: Long,
         postId: Long
     ): Result<PostDetail> {
         return communityRepository.getPostDetail(
+            communityId = communityId,
             postId = postId
         )
     }

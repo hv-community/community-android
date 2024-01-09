@@ -3,7 +3,7 @@
 app-versioncode = "1"
 app-versionname = "1.0.0"
 # SDK Version
-sdk-min = "24"
+sdk-min = "26"
 sdk-target = "34"
 sdk-compile = "34"
 # Plugin Version
@@ -30,6 +30,7 @@ google-material = "1.11.0"
 retrofit = "2.9.0"
 retrofit-coroutines-adapter = "0.9.2"
 kotlinx-serialization = "1.6.1"
+kotlinx-serialization-datetime = "0.5.0"
 kotlinx-serialization-converter = "0.8.0"
 # UI
 glide = "4.14.2"
@@ -74,6 +75,7 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 retrofit-coroutines-adapter = { module = "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter", version.ref = "retrofit-coroutines-adapter" }
 retrofit-scalars-converter = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "retrofit" }
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+kotlinx-serialization-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-serialization-datetime" }
 kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "kotlinx-serialization-converter" }
 # UI
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
@@ -108,5 +110,6 @@ kotlin = ["kotlin", "kotlinx-coroutines-android", "kotlinx-coroutines-core"]
 androidx-presentation = ["androidx-core", "androidx-appcompat", "androidx-constraintlayout", "androidx-recyclerview",
     "androidx-fragment", "androidx-viewmodel", "androidx-livedata", "androidx-navigation-fragment", "androidx-navigation-ui"]
 androidx-data = ["androidx-room-runtime", "androidx-room-coroutine"]
-network = ["retrofit", "retrofit-coroutines-adapter", "retrofit-scalars-converter", "kotlinx-serialization", "kotlinx-serialization-converter"]
+network = ["retrofit", "retrofit-coroutines-adapter", "retrofit-scalars-converter", "kotlinx-serialization",
+    "kotlinx-serialization-datetime", "kotlinx-serialization-converter"]
 flipper = ["flipper", "flipper-network", "flipper-leakcanary", "flipper-soloader"]

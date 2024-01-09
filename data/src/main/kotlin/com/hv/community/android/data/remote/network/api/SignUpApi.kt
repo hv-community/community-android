@@ -11,22 +11,22 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface SignUpApi {
-    @POST("/member/signup")
+    @POST("/member/v1/signup")
     suspend fun signUp(
         @Body body: UserSignUpReq,
     ): Response<UserSignUpRes>
 
-    @POST("/member/send-email-verification-code")
+    @POST("/member/v1/email/send")
     suspend fun sendEmail(
         @Body body: UserSendEmailReq,
     ): Response<Unit>
 
-    @POST("/member/activate-email")
+    @POST("/member/v1/email/activate")
     suspend fun verifyEmail(
         @Body body: UserVerifyEmailReq,
     ): Response<Unit>
 
-    @POST("/member/signin")
+    @POST("/member/v1/signin")
     suspend fun signIn(
         @Body body: UserSignInReq,
     ): Response<UserSignInRes>

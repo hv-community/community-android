@@ -39,8 +39,10 @@ private class PostDetailCommentListComparator : DiffUtil.ItemCallback<ReplyModel
 
     override fun areContentsTheSame(oldItem: ReplyModel, newItem: ReplyModel): Boolean {
         return oldItem.id == newItem.id
-                && oldItem.member == newItem.member
+                && oldItem.content == newItem.content
                 && oldItem.nickname == newItem.nickname
-                && oldItem.reply == newItem.reply
+                && oldItem.memberId == newItem.memberId
+                && oldItem.creationTime == newItem.creationTime
+                && oldItem.modificationTime == newItem.modificationTime
     }
 }

@@ -24,9 +24,9 @@ class CommentViewHolder(
         onDeleteClick: (ReplyModel) -> Unit
     ) {
         with(binding.comment) {
-            content = item.reply
-            nickname = item.member.ifEmpty { item.nickname }
-            isPasswordVisible = item.member.isEmpty()
+            content = item.content
+            nickname = item.nickname
+            isPasswordVisible = item.memberId == -1L
             this.onPasswordChanged = OnTextChangedListener { onPasswordChanged(item.id, it) }
             this.onContentChanged = OnTextChangedListener { onContentChanged(item.id, it) }
             this.onExpand = OnStateChangedListener { onExpand(item.id, it) }

@@ -16,7 +16,7 @@ class PostViewHolder(
     ) {
         with(binding) {
             title.text = item.title
-            nickname.text = "작성자 : ${item.member.ifEmpty { item.nickname }}"
+            nickname.text = "작성자 : ${item.nickname}"
             textComment.text = item.replyCount.toString()
             container.setOnClickListener {
                 onClick(item)

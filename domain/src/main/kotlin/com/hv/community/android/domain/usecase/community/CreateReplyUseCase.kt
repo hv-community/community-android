@@ -7,16 +7,18 @@ class CreateReplyUseCase @Inject constructor(
     private val communityRepository: CommunityRepository
 ) {
     suspend operator fun invoke(
+        communityId: Long,
+        postId: Long,
         nickname: String,
         password: String,
-        postId: Long,
-        reply: String
+        content: String
     ): Result<Long> {
         return communityRepository.createReply(
-            nickname = nickname,
-            password = password,
+            communityId = communityId,
             postId = postId,
-            reply = reply
+            content = content,
+            nickname = nickname,
+            password = password
         )
     }
 }

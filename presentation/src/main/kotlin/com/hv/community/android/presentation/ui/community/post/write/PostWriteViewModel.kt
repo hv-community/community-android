@@ -51,7 +51,8 @@ class PostWriteViewModel @Inject constructor(
                 _state.value = PostWriteState.Loading
 
                 getPostDetailUseCase(
-                    arguments.postId
+                    communityId = arguments.communityId,
+                    postId = arguments.postId
                 ).onSuccess { post ->
                     _state.value = PostWriteState.Init
 

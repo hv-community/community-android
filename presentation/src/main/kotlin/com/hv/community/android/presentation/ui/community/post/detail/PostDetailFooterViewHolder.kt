@@ -20,14 +20,14 @@ class PostDetailFooterViewHolder(
         onWrite: () -> Unit
     ) {
         with(binding) {
-            nickname.setText(item.member)
-            nickname.isEnabled = item.member.isEmpty() && item.isInit
+            nickname.setText(item.nickname)
+            nickname.isEnabled = !item.isLogined && item.isInit
 //        nickname.removeTextChangedListener() TODO
             nickname.doAfterTextChanged { onNicknameChanged(it.toString()) }
 
-            dividerNickname.isVisible = item.member.isEmpty()
+            dividerNickname.isVisible = !item.isLogined
 
-            password.isVisible = item.member.isEmpty()
+            password.isVisible = !item.isLogined
             password.setText(item.password)
             password.isEnabled = item.isInit
 //        password.removeTextChangedListener() TODO

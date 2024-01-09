@@ -7,12 +7,14 @@ class CheckPostPasswordUseCase @Inject constructor(
     private val communityRepository: CommunityRepository
 ) {
     suspend operator fun invoke(
-        password: String,
-        postId: Long
+        communityId: Long,
+        postId: Long,
+        password: String
     ): Result<Unit> {
         return communityRepository.checkPostPassword(
-            password = password,
-            postId = postId
+            postId = postId,
+            communityId = communityId,
+            password = password
         )
     }
 }

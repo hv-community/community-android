@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class PostDetailHeaderModel(
-    val id: Long = 0L,
+    val id: Long = -1L,
     val title: String = "",
     val nickname: String = "",
     val isInit: Boolean = true,

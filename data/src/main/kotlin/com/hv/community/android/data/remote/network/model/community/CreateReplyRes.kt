@@ -5,6 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CreateReplyRes(
-    @SerialName("reply_id")
-    val replyId: Long
+    @SerialName("id")
+    val id: Long = -1L,
 )

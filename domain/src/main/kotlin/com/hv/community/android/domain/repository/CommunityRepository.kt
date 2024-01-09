@@ -3,6 +3,7 @@ package com.hv.community.android.domain.repository
 import com.hv.community.android.domain.model.community.Community
 import com.hv.community.android.domain.model.community.Post
 import com.hv.community.android.domain.model.community.PostDetail
+import com.hv.community.android.domain.model.community.Reply
 
 interface CommunityRepository {
     suspend fun getCommunityList(): Result<List<Community>>
@@ -12,8 +13,14 @@ interface CommunityRepository {
     ): Result<List<Post>>
 
     suspend fun getPostDetail(
+        communityId: Long,
         postId: Long
     ): Result<PostDetail>
+
+    suspend fun getReplyList(
+        communityId: Long,
+        postId: Long
+    ): Result<List<Reply>>
 
     suspend fun createPost(
         communityId: Long,
@@ -24,42 +31,52 @@ interface CommunityRepository {
     ): Result<Long>
 
     suspend fun checkPostPassword(
-        password: String,
-        postId: Long
+        communityId: Long,
+        postId: Long,
+        password: String
     ): Result<Unit>
 
     suspend fun updatePost(
-        content: String,
-        password: String,
+        communityId: Long,
         postId: Long,
-        title: String
+        title: String,
+        content: String,
+        password: String
     ): Result<Unit>
 
     suspend fun deletePost(
-        password: String,
-        postId: Long
+        communityId: Long,
+        postId: Long,
+        password: String
     ): Result<Unit>
 
     suspend fun createReply(
-        nickname: String,
-        password: String,
+        communityId: Long,
         postId: Long,
-        reply: String
+        content: String,
+        nickname: String,
+        password: String
     ): Result<Long>
 
     suspend fun checkReplyPassword(
-        password: String,
-        replyId: Long
+        communityId: Long,
+        postId: Long,
+        replyId: Long,
+        password: String
     ): Result<Unit>
 
     suspend fun updateReply(
-        password: String,
-        reply: String,
-        replyId: Long
+        communityId: Long,
+        postId: Long,
+        replyId: Long,
+        content: String,
+        password: String
     ): Result<Unit>
 
     suspend fun deleteReply(
-        password: String,
-        replyId: Long
+        communityId: Long,
+        postId: Long,
+        replyId: Long,
+        password: String
     ): Result<Unit>
 }

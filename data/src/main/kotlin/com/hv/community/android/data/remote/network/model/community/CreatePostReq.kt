@@ -5,12 +5,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CreatePostReq(
-    @SerialName("community_id")
-    val communityId: Long,
-    @SerialName("content")
-    val content: String,
     @SerialName("title")
     val title: String,
+    @SerialName("content")
+    val content: String,
     @SerialName("nickname")
     val nickname: String,
     @SerialName("password")

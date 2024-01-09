@@ -10,6 +10,7 @@ import com.hv.community.android.domain.usecase.community.CreateReplyUseCase
 import com.hv.community.android.domain.usecase.community.DeletePostUseCase
 import com.hv.community.android.domain.usecase.community.DeleteReplyUseCase
 import com.hv.community.android.domain.usecase.community.GetPostDetailUseCase
+import com.hv.community.android.domain.usecase.community.GetReplyListUseCase
 import com.hv.community.android.domain.usecase.community.UpdateReplyUseCase
 import com.hv.community.android.domain.usecase.user.GetMyProfileUseCase
 import com.hv.community.android.domain.usecase.user.UserIsLoginedUseCase
@@ -22,9 +23,12 @@ import com.hv.community.android.presentation.model.community.post.detail.PostDet
 import com.hv.community.android.presentation.model.community.post.detail.ReplyModel
 import com.hv.community.android.presentation.model.community.post.detail.toUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -38,7 +42,8 @@ class PostDetailViewModel @Inject constructor(
     private val updateReplyUseCase: UpdateReplyUseCase,
     private val deleteReplyUseCase: DeleteReplyUseCase,
     private val userIsLoginedUseCase: UserIsLoginedUseCase,
-    private val getMyProfileUseCase: GetMyProfileUseCase
+    private val getMyProfileUseCase: GetMyProfileUseCase,
+    private val getReplyListUseCase: GetReplyListUseCase
 ) : BaseViewModel() {
 
     private val _state: MutableStateFlow<PostDetailState> = MutableStateFlow(PostDetailState.Init)
@@ -109,6 +114,7 @@ class PostDetailViewModel @Inject constructor(
             _state.value = PostDetailState.Updating
 
             deletePostUseCase(
+                communityId = arguments.communityId,
                 postId = postId,
                 password = password
             ).onSuccess {
@@ -133,16 +139,17 @@ class PostDetailViewModel @Inject constructor(
         nickname: String,
         password: String,
         postId: Long,
-        reply: String
+        content: String
     ) {
         launch {
             _state.value = PostDetailState.Updating
 
             createReplyUseCase(
+                communityId = arguments.communityId,
+                postId = postId,
                 nickname = nickname,
                 password = password,
-                postId = postId,
-                reply = reply
+                content = content
             ).onSuccess {
                 refresh()
                 _event.emit(PostDetailViewEvent.WriteComment.Success)
@@ -163,15 +170,17 @@ class PostDetailViewModel @Inject constructor(
 
     fun editComment(
         password: String,
-        reply: String,
+        content: String,
         replyId: Long
     ) {
         launch {
             _state.value = PostDetailState.Updating
             updateReplyUseCase(
-                password = password,
-                reply = reply,
-                replyId = replyId
+                communityId = arguments.communityId,
+                postId = arguments.postId,
+                replyId = replyId,
+                content = content,
+                password = password
             ).onSuccess {
                 refresh()
                 _event.emit(PostDetailViewEvent.EditComment.Success)
@@ -197,8 +206,10 @@ class PostDetailViewModel @Inject constructor(
         launch {
             _state.value = PostDetailState.Updating
             deleteReplyUseCase(
-                password = password,
-                replyId = replyId
+                communityId = arguments.communityId,
+                postId = arguments.postId,
+                replyId = replyId,
+                password = password
             ).onSuccess {
                 refresh()
                 _event.emit(PostDetailViewEvent.DeleteComment.Success)
@@ -311,30 +322,44 @@ class PostDetailViewModel @Inject constructor(
     private suspend fun refresh() {
         _state.value = PostDetailState.Loading
 
-        getPostDetailUseCase(
-            arguments.postId
-        ).onSuccess { post ->
+        withContext(Dispatchers.IO) {
+            val postDetail = async {
+                getPostDetailUseCase(
+                    communityId = arguments.communityId,
+                    postId = arguments.postId
+                )
+            }
+            val replyList = async {
+                getReplyListUseCase(
+                    communityId = arguments.communityId,
+                    postId = arguments.postId
+                )
+            }
+            runCatching {
+                postDetail.await().getOrThrow() to replyList.await().getOrThrow()
+            }
+        }.onSuccess { (postDetail, replyList) ->
             _state.value = PostDetailState.Init
 
-            postDetail = post
+            this.postDetail = postDetail
 
             refreshCount++
             _headerModel.value = PostDetailHeaderModel(
                 id = refreshCount,
-                title = post.title,
-                nickname = post.nickname.ifEmpty { post.member },
+                title = postDetail.title,
+                nickname = postDetail.nickname,
                 isInit = state.value == PostDetailState.Init,
-                content = post.content
+                content = postDetail.content
             )
-            _commentList.value = post.replies.map { reply ->
+            _commentList.value = replyList.map { reply ->
                 reply.toUiModel(
-                    // TODO : 게시글 작성자 ID 비교
-                    isExpandEnabled = reply.member.isEmpty()
+                    isExpandEnabled = reply.memberId == -1L || profile.id == reply.memberId
                 )
             }
             _footerModel.value = PostDetailFooterModel(
                 id = refreshCount,
-                member = profile.nickname,
+                isLogined = isLogined,
+                nickname = profile.nickname,
                 isInit = state.value == PostDetailState.Init
             )
         }.onFailure { exception ->

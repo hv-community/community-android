@@ -7,16 +7,18 @@ class UpdatePostUseCase @Inject constructor(
     private val communityRepository: CommunityRepository
 ) {
     suspend operator fun invoke(
+        communityId: Long,
+        postId: Long,
+        title: String,
         content: String,
         password: String,
-        postId: Long,
-        title: String
     ): Result<Unit> {
         return communityRepository.updatePost(
-            content = content,
-            password = password,
+            communityId = communityId,
             postId = postId,
-            title = title
+            title = title,
+            content = content,
+            password = password
         )
     }
 }

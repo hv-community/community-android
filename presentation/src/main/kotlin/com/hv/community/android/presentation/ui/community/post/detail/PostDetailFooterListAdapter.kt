@@ -33,7 +33,7 @@ private class PostDetailFooterListComparator : DiffUtil.ItemCallback<PostDetailF
 
     override fun areContentsTheSame(oldItem: PostDetailFooterModel, newItem: PostDetailFooterModel): Boolean {
         return oldItem.id == newItem.id
-                && oldItem.member == newItem.member
+                && oldItem.isLogined == newItem.isLogined
                 && oldItem.isInit == newItem.isInit
     }
 }

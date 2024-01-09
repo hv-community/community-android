@@ -7,12 +7,16 @@ class CheckReplyPasswordUseCase @Inject constructor(
     private val communityRepository: CommunityRepository
 ) {
     suspend operator fun invoke(
+        communityId: Long,
+        postId: Long,
+        replyId: Long,
         password: String,
-        replyId: Long
     ): Result<Unit> {
         return communityRepository.checkReplyPassword(
-            password = password,
-            replyId = replyId
+            communityId = communityId,
+            postId = postId,
+            replyId = replyId,
+            password = password
         )
     }
 }

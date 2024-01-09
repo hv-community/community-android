@@ -7,7 +7,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface AuthenticationApi {
-    @POST("/member/refresh-access-token")
+    @POST("/member/v1/refresh")
     suspend fun getAccessToken(
         @Body body: GetAccessTokenReq,
     ): Response<GetAccessTokenRes>

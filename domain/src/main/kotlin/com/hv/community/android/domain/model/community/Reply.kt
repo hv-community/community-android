@@ -1,8 +1,12 @@
 package com.hv.community.android.domain.model.community
 
+import kotlinx.datetime.Instant
+
 data class Reply(
     val id: Long,
-    val member: String,
+    val content: String,
     val nickname: String,
-    val reply: String
+    val memberId: Long,
+    val creationTime: Instant,
+    val modificationTime: Instant,
 )

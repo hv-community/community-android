@@ -5,6 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CreatePostRes(
-    @SerialName("post_id")
-    val postId: Long
+    @SerialName("id")
+    val id: Long = -1L,
 )

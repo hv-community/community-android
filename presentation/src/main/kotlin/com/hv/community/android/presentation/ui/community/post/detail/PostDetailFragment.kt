@@ -43,7 +43,7 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>(
                 // TODO : 비밀번호 확인
                 viewModel.editComment(
                     password = comment.password,
-                    reply = comment.fixedContent,
+                    content = comment.fixedContent,
                     replyId = comment.id
                 )
             },
@@ -74,7 +74,7 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>(
                     nickname = model.nickname,
                     password = model.password,
                     postId = viewModel.arguments.postId,
-                    reply = model.content
+                    content = model.content
                 )
             },
         )

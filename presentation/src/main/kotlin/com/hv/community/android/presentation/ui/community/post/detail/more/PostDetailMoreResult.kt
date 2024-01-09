@@ -1,7 +1,7 @@
 package com.hv.community.android.presentation.ui.community.post.detail.more
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 sealed interface PostDetailMoreResult : Parcelable {
     @Parcelize

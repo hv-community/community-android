@@ -13,6 +13,14 @@
     <string name="error_member_nickname_exist">이미 존재하는 닉네임입니다</string>
     <string name="error_member_member_unregister">유저 정보가 없습니다</string>
     <string name="error_member_refresh_token_invalid">장기간 로그인으로 인해 로그인이 해제되었습니다.\n다시 로그인해주세요.</string>
+    <string name="error_member_get_my_profile_error">프로필을 가져오는중 오류가 발생했습니다</string>
+    <string name="error_member_email_activate_require">이메일 활성화가 필요합니다</string>
+    <string name="error_member_email_or_password_error">이메일 혹은 비밀번호가 틀렸습니다</string>
+    <string name="error_member_activate_email_fail">이메일 활성화중 오류가 발생했습니다</string>
+    <string name="error_member_get_email_verification_code_fail">인증 메일 발송에 실패했습니다. 다시 시도해주세요</string>
+    <string name="error_member_create_email_verification_code_fail">인증 메일 발송에 실패했습니다. 다시 시도해주세요</string>
+    <string name="error_member_signup_fail">가입중 오류가 발생했습니다</string>
+    <string name="error_member_empty_access_token">로그인 후 다시 시도해주세요</string>
 
     <string name="error_token_token_expired">장기간 로그인으로 인해 로그인이 해제되었습니다. 다시 로그인해주세요. </string>
     <string name="error_token_token_invalid">정상적인 로그인방식이 아닙니다.</string>
@@ -24,5 +32,16 @@
     <string name="error_community_reply_invalid">댓글이 존재하지 않습니다</string>
     <string name="error_community_empty_title_or_content">제목 혹은 내용이 비어있습니다</string>
     <string name="error_community_password_invalid">비밀번호가 일치하지 않습니다</string>
-    <string name="error_community_permission_invalid">권한이 없습니다</string>
+    <string name="error_community_permission_invalid">"권한이 없습니다</string>
+    <string name="error_community_unavailable_user_name">2글자 이상의 닉네임을 사용해주세요</string>
+    <string name="error_community_reply_update_fail">댓글 수정중 오류가 발생했습니다</string>
+    <string name="error_community_reply_delete_fail">댓글 삭제중 오류가 발생했습니다</string>
+    <string name="error_community_reply_create_fail">댓글 작성중 오류가 발생했습니다</string>
+    <string name="error_community_post_delete_fail">게시글 삭제중 오류가 발생했습니다</string>
+    <string name="error_community_post_update_fail">게시글 수정중 오류가 발생했습니다</string>
+    <string name="error_community_post_create_fail">게시글 작성중 오류가 발생했습니다</string>
+    <string name="error_community_post_reply_fail">댓글목록을 불러오지 못했습니다</string>
+    <string name="error_community_post_detail_fail">게시글상세 페이지를 불러오지 못했습니다</string>
+    <string name="error_community_community_list_fail">게시판을 불러오지 못했습니다</string>
+    <string name="error_community_post_list_fail">게시글을 불러오지 못했습니다</string>
 </resources>

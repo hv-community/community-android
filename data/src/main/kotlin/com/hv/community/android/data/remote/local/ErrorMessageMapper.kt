@@ -2,6 +2,7 @@ package com.hv.community.android.data.remote.local
 
 import android.content.Context
 import com.hv.community.android.data.R
+import timber.log.Timber
 
 class ErrorMessageMapper(
     private val context: Context
@@ -19,6 +20,14 @@ class ErrorMessageMapper(
             "MEMBER:NICKNAME_EXIST" -> R.string.error_member_nickname_exist
             "MEMBER:MEMBER_UNREGISTER" -> R.string.error_member_member_unregister
             "MEMBER:REFRESH_TOKEN_INVALID" -> R.string.error_member_refresh_token_invalid
+            "MEMBER:GET_MY_PROFILE_ERROR" -> R.string.error_member_get_my_profile_error
+            "MEMBER:EMAIL_ACTIVATE_REQUIRE" -> R.string.error_member_email_activate_require
+            "MEMBER:EMAIL_OR_PASSWORD_ERROR" -> R.string.error_member_email_or_password_error
+            "MEMBER:ACTIVATE_EMAIL_FAIL" -> R.string.error_member_activate_email_fail
+            "MEMBER:GET_EMAIL_VERIFICATION_CODE_FAIL" -> R.string.error_member_get_email_verification_code_fail
+            "MEMBER:CREATE_EMAIL_VERIFICATION_CODE_FAIL" -> R.string.error_member_create_email_verification_code_fail
+            "MEMBER:SIGNUP_FAIL" -> R.string.error_member_signup_fail
+            "MEMBER:EMPTY_ACCESS_TOKEN" -> R.string.error_member_empty_access_token
             "TOKEN:TOKEN_EXPIRED" -> R.string.error_token_token_expired
             "TOKEN:TOKEN_INVALID" -> R.string.error_token_token_invalid
             "TOKEN:UNAUTHORIZED" -> R.string.error_token_unauthorized
@@ -29,7 +38,22 @@ class ErrorMessageMapper(
             "COMMUNITY:EMPTY_TITLE_OR_CONTENT" -> R.string.error_community_empty_title_or_content
             "COMMUNITY:PASSWORD_INVALID" -> R.string.error_community_password_invalid
             "COMMUNITY:PERMISSION_INVALID" -> R.string.error_community_permission_invalid
-            else -> R.string.error_unknown
+            "COMMUNITY:UNAVAILABLE_USER_NAME" -> R.string.error_community_unavailable_user_name
+            "COMMUNITY:REPLY_UPDATE_FAIL" -> R.string.error_community_reply_update_fail
+            "COMMUNITY:REPLY_DELETE_FAIL" -> R.string.error_community_reply_delete_fail
+            "COMMUNITY:REPLY_CREATE_FAIL" -> R.string.error_community_reply_create_fail
+            "COMMUNITY:POST_DELETE_FAIL" -> R.string.error_community_post_delete_fail
+            "COMMUNITY:POST_UPDATE_FAIL" -> R.string.error_community_post_update_fail
+            "COMMUNITY:POST_CREATE_FAIL" -> R.string.error_community_post_create_fail
+            "COMMUNITY:POST_REPLY_FAIL" -> R.string.error_community_post_reply_fail
+            "COMMUNITY:POST_DETAIL_FAIL" -> R.string.error_community_post_detail_fail
+            "COMMUNITY:COMMUNITY_LIST_FAIL" -> R.string.error_community_community_list_fail
+            "COMMUNITY:POST_LIST_FAIL" -> R.string.error_community_post_list_fail
+
+            else -> {
+                Timber.e("Undefined error key: $key")
+                R.string.error_unknown
+            }
         }
 
         return context.getString(id)

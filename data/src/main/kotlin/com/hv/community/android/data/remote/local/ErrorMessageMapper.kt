@@ -2,6 +2,7 @@ package com.hv.community.android.data.remote.local
 
 import android.content.Context
 import com.hv.community.android.data.R
+import com.hv.community.android.domain.model.error.UndefinedKeyException
 import timber.log.Timber
 
 class ErrorMessageMapper(
@@ -51,7 +52,7 @@ class ErrorMessageMapper(
             "COMMUNITY:POST_LIST_FAIL" -> R.string.error_community_post_list_fail
 
             else -> {
-                Timber.e("Undefined error key: $key")
+                Timber.e(UndefinedKeyException("Undefined error key: $key"))
                 R.string.error_unknown
             }
         }

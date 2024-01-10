@@ -12,6 +12,8 @@ class ErrorMessageMapper(
         key: String
     ): String {
         val id = when (key) {
+            KEY_INTERNAL_SERVER_ERROR -> R.string.error_internal_server_error
+
             "ACCESS:FORBIDDEN_ACCESS" -> R.string.error_access_forbidden_access
             "MAIL:SEND_MAIL_FAIL" -> R.string.error_mail_send_mail_fail
             "MEMBER:EMAIL_FORM_ERROR" -> R.string.error_member_email_form_error
@@ -58,5 +60,9 @@ class ErrorMessageMapper(
         }
 
         return context.getString(id)
+    }
+
+    companion object {
+        const val KEY_INTERNAL_SERVER_ERROR = "SERVER:INTERNAL_SERVER_ERROR"
     }
 }

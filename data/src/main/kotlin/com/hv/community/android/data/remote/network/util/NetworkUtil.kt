@@ -17,8 +17,8 @@ fun <T : DataMapper<R>, R : Any> Response<T>.convertResponseToDomain(
         } else {
             throw this.toThrowable(errorMessageMapper)
         }
-    }.onFailure {
-        Timber.e(it)
+    }.onFailure { exception ->
+        Timber.d(exception)
     }
 }
 
@@ -31,8 +31,8 @@ fun <T> Response<T>.convertResponse(
         } else {
             throw this.toThrowable(errorMessageMapper)
         }
-    }.onFailure {
-        Timber.e(it)
+    }.onFailure { exception ->
+        Timber.d(exception)
     }
 }
 

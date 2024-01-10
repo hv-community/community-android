@@ -82,8 +82,8 @@ class PostWriteViewModel @Inject constructor(
                 communityId = arguments.communityId,
                 title = title.value,
                 content = content.value,
-                nickname = nickname.value.takeIf { isLogined }.orEmpty(),
-                password = password.value.takeIf { isLogined }.orEmpty()
+                nickname = nickname.value.takeIf { !isLogined }.orEmpty(),
+                password = password.value.takeIf { !isLogined }.orEmpty()
             )
         }
     }

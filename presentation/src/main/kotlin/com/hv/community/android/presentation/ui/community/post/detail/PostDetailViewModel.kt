@@ -297,25 +297,29 @@ class PostDetailViewModel @Inject constructor(
     }
 
     private suspend fun initialize() {
-        _state.value = PostDetailState.Loading
+        if (isLogined) {
+            _state.value = PostDetailState.Loading
 
-        getMyProfileUseCase().onSuccess { profile ->
-            _state.value = PostDetailState.Init
+            getMyProfileUseCase().onSuccess { profile ->
+                _state.value = PostDetailState.Init
 
-            this.profile = profile
-            refresh()
-        }.onFailure { exception ->
-            _state.value = PostDetailState.Init
+                this.profile = profile
+                refresh()
+            }.onFailure { exception ->
+                _state.value = PostDetailState.Init
 
-            when (exception) {
-                is ServerException -> {
-                    _event.emit(PostDetailViewEvent.LoadPost.Fail(exception))
-                }
+                when (exception) {
+                    is ServerException -> {
+                        _event.emit(PostDetailViewEvent.LoadPost.Fail(exception))
+                    }
 
-                else -> {
-                    _event.emit(PostDetailViewEvent.LoadPost.Error(exception))
+                    else -> {
+                        _event.emit(PostDetailViewEvent.LoadPost.Error(exception))
+                    }
                 }
             }
+        } else {
+            refresh()
         }
     }
 

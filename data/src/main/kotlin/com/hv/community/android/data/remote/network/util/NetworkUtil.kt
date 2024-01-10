@@ -6,6 +6,8 @@ import com.hv.community.android.data.remote.network.model.error.ErrorRes
 import com.hv.community.android.domain.model.error.BadRequestServerException
 import com.hv.community.android.domain.model.error.InternalServerException
 import com.hv.community.android.domain.model.error.InvalidStandardResponseException
+import io.sentry.Sentry
+import io.sentry.SentryLevel
 import kotlinx.serialization.json.Json
 import retrofit2.Response
 import timber.log.Timber
@@ -21,6 +23,10 @@ fun <T : DataMapper<R>, R : Any> Response<T>.convertResponseToDomain(
         }
     }.onFailure { exception ->
         Timber.d(exception)
+        Sentry.withScope {
+            it.level = SentryLevel.INFO
+            Sentry.captureException(exception)
+        }
     }
 }
 
@@ -35,6 +41,10 @@ fun <T> Response<T>.convertResponse(
         }
     }.onFailure { exception ->
         Timber.d(exception)
+        Sentry.withScope {
+            it.level = SentryLevel.INFO
+            Sentry.captureException(exception)
+        }
     }
 }
 

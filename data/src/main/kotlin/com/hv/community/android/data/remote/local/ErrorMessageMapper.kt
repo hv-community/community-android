@@ -31,6 +31,7 @@ class ErrorMessageMapper(
             "MEMBER:CREATE_EMAIL_VERIFICATION_CODE_FAIL" -> R.string.error_member_create_email_verification_code_fail
             "MEMBER:SIGNUP_FAIL" -> R.string.error_member_signup_fail
             "MEMBER:EMPTY_ACCESS_TOKEN" -> R.string.error_member_empty_access_token
+            "MEMBER:MEMBER_UNREGISTERED" -> R.string.error_member_member_unregistered
             "TOKEN:TOKEN_EXPIRED" -> R.string.error_token_token_expired
             "TOKEN:TOKEN_INVALID" -> R.string.error_token_token_invalid
             "TOKEN:UNAUTHORIZED" -> R.string.error_token_unauthorized
@@ -52,7 +53,7 @@ class ErrorMessageMapper(
             "COMMUNITY:POST_DETAIL_FAIL" -> R.string.error_community_post_detail_fail
             "COMMUNITY:COMMUNITY_LIST_FAIL" -> R.string.error_community_community_list_fail
             "COMMUNITY:POST_LIST_FAIL" -> R.string.error_community_post_list_fail
-
+            "COMMUNITY:COMMUNITY_DETAIL_FAIL" -> R.string.error_community_community_detail_fail
             else -> {
                 Timber.e(UndefinedKeyException("Undefined error key: $key"))
                 R.string.error_unknown

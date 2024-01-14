@@ -36,10 +36,7 @@ class RegistrationFragment :
                 is RegistrationViewEvent.Registration.Fail -> {
                     AlertDialogFragmentProvider.makeAlertDialog(
                         title = "회원가입 에러",
-                        message = event.exception.message,
-                        onDismiss = {
-                            requireActivity().finishAffinity()
-                        }
+                        message = event.exception.message
                     ).show()
                 }
 
